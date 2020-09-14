@@ -1,4 +1,4 @@
-## 0.1.1 (unreleased)
+## 0.1.1 (2020-09-14)
 
 - Added shared libraries
 - Improved error message when model file does not exist
