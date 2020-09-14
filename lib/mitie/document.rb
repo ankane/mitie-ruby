@@ -13,7 +13,6 @@ module Mitie
 
     def tokens_with_offset
       @tokens_with_offset ||= begin
-        tokens_ptr, offsets_ptr = tokenize
         i = 0
         tokens = []
         loop do
@@ -31,7 +30,6 @@ module Mitie
       @entities ||= begin
         begin
           entities = []
-          tokens_ptr, _  = tokenize
           tokens = tokens_with_offset
           detections = FFI.mitie_extract_entities(pointer, tokens_ptr)
           num_detections = FFI.mitie_ner_get_num_detections(detections)
@@ -61,6 +59,14 @@ module Mitie
 
     def pointer
       model.pointer
+    end
+
+    def tokens_ptr
+      tokenize[0]
+    end
+
+    def offsets_ptr
+      tokenize[1]
     end
 
     def tokenize
