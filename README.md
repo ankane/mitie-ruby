@@ -2,13 +2,9 @@
 
 [MITIE](https://github.com/mit-nlp/MITIE) - named-entity recognition - for Ruby
 
+[![Build Status](https://travis-ci.org/ankane/mitie.svg?branch=master)](https://travis-ci.org/ankane/mitie)
+
 ## Installation
-
-First, install MITIE. For Homebrew, use:
-
-```sh
-brew install mitie
-```
 
 Add this line to your application’s Gemfile:
 
@@ -89,5 +85,6 @@ To get started with development:
 git clone https://github.com/ankane/mitie.git
 cd mitie
 bundle install
+bundle exec rake vendor:all
 MITIE_NER_PATH=path/to/ner_model.dat bundle exec rake test
 ```
