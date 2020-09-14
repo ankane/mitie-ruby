@@ -19,7 +19,6 @@ before_test:
   - bundle -v
   - ridk enable
   - set HOME=%USERPROFILE%
-  - mkdir "%HOME%/MITIE-models"
   - set MITIE_MODELS_VERSION=0.2
   - sh ./test/ci/install_models.sh
   - set MITIE_NER_PATH=%HOME%/MITIE-models/%MITIE_MODELS_VERSION%/english/ner_model.dat
