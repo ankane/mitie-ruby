@@ -1,6 +1,8 @@
 module Mitie
   class NER
     def initialize(path)
+      # better error message
+      raise ArgumentError, "Model file does not exist" unless File.exist?(path)
       @pointer = FFI.mitie_load_named_entity_extractor(path)
       ObjectSpace.define_finalizer(self, self.class.finalize(pointer))
     end

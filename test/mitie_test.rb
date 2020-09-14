@@ -28,6 +28,13 @@ class MitieTest < Minitest::Test
     assert_equal ["PERSON", "LOCATION", "ORGANIZATION", "MISC"], model.tags
   end
 
+  def test_missing_file
+    error = assert_raises(ArgumentError) do
+      Mitie::NER.new("missing.dat")
+    end
+    assert_equal "Model file does not exist", error.message
+  end
+
   def text
     "Nat Friedman is the CEO of GitHub, which is headquartered in San Francisco"
   end
