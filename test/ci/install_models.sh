@@ -4,7 +4,7 @@ set -e
 
 CACHE_DIR=$HOME/MITIE-models/$MITIE_MODELS_VERSION
 
-mkdir $HOME/MITIE-models
+mkdir -p $HOME/MITIE-models
 
 if [ ! -d "$CACHE_DIR" ]; then
   cd /tmp
