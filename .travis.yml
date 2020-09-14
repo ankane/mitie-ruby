@@ -4,7 +4,7 @@ rvm: 2.7
 before_script:
   - export MITIE_MODELS_VERSION=0.2
   - ./test/ci/install_models.sh
-  - export MITIE_NER_PATH=MITIE-models/english/ner_model.dat
+  - export MITIE_NER_PATH=MITIE-models/$MITIE_MODELS_VERSION/english/ner_model.dat
   - bundle exec rake vendor:linux
 cache:
   directories:
