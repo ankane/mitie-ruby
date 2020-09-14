@@ -2,7 +2,7 @@
 
 [MITIE](https://github.com/mit-nlp/MITIE) - named-entity recognition - for Ruby
 
-[![Build Status](https://travis-ci.org/ankane/mitie.svg?branch=master)](https://travis-ci.org/ankane/mitie)
+[![Build Status](https://travis-ci.org/ankane/mitie.svg?branch=master)](https://travis-ci.org/ankane/mitie) [![Build status](https://ci.appveyor.com/api/projects/status/stc89tc57xfva451/branch/master?svg=true)](https://ci.appveyor.com/project/ankane/mitie/branch/master)
 
 ## Installation
 
