@@ -28,4 +28,11 @@ class BinaryRelationDetectorTest < Minitest::Test
     assert_equal "Menlo Park", relation[:second]
     assert relation[:score]
   end
+
+  def test_missing_file
+    error = assert_raises(ArgumentError) do
+      Mitie::BinaryRelationDetector.new("missing.dat")
+    end
+    assert_equal "File does not exist", error.message
+  end
 end

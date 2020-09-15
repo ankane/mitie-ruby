@@ -2,7 +2,7 @@ module Mitie
   class BinaryRelationDetector
     def initialize(path)
       # better error message
-      raise ArgumentError, "Model file does not exist" unless File.exist?(path)
+      raise ArgumentError, "File does not exist" unless File.exist?(path)
       @pointer = FFI.mitie_load_binary_relation_detector(path)
       ObjectSpace.define_finalizer(self, self.class.finalize(pointer))
     end

@@ -32,6 +32,6 @@ class NERTest < Minitest::Test
     error = assert_raises(ArgumentError) do
       Mitie::NER.new("missing.dat")
     end
-    assert_equal "Model file does not exist", error.message
+    assert_equal "File does not exist", error.message
   end
 end
