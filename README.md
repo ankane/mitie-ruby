@@ -77,13 +77,13 @@ Detect relationships betweens two entities, like:
 - `ORGANIZATION` was founded in `LOCATION`
 - `FILM` was directed by `PERSON`
 
-Create a detector
+Load a detector
 
 ```ruby
 detector = Mitie::BinaryRelationDetector.new("rel_classifier_film.film.directed_by.svm")
 ```
 
-And a document
+And create a document
 
 ```ruby
 doc = model.doc("The Shawshank Redemption was directed by Frank Darabont")
