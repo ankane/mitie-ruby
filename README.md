@@ -2,7 +2,7 @@
 
 [MITIE](https://github.com/mit-nlp/MITIE) - named-entity recognition and binary relation detection - for Ruby
 
-- Finds people, organization, and locations
+- Finds people, organization, and locations in text
 - Detects relationships between entities, like `PERSON` was born in `LOCATION`
 
 [![Build Status](https://travis-ci.org/ankane/mitie.svg?branch=master)](https://travis-ci.org/ankane/mitie) [![Build status](https://ci.appveyor.com/api/projects/status/stc89tc57xfva451/branch/master?svg=true)](https://ci.appveyor.com/project/ankane/mitie/branch/master)
@@ -73,9 +73,9 @@ model.tags
 
 Detect relationships betweens two entities, like:
 
-- `FILM` was directed by `PERSON`
 - `PERSON` was born in `LOCATION`
 - `ORGANIZATION` was founded in `LOCATION`
+- `FILM` was directed by `PERSON`
 
 Create a detector
 
