@@ -77,6 +77,8 @@ Detect relationships betweens two entities, like:
 - `ORGANIZATION` was founded in `LOCATION`
 - `FILM` was directed by `PERSON`
 
+There are 21 detectors for English. You can find them in the `binary_relations` directory in the models download.
+
 Load a detector
 
 ```ruby
