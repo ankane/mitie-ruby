@@ -15,20 +15,20 @@ module Mitie
       end
     end
 
-    def document(text)
+    def doc(text)
       Document.new(self, text)
     end
 
     def entities(text)
-      document(text).entities
+      doc(text).entities
     end
 
     def tokens(text)
-      document(text).tokens
+      doc(text).tokens
     end
 
     def tokens_with_offset(text)
-      document(text).tokens_with_offset
+      doc(text).tokens_with_offset
     end
 
     def self.finalize(pointer)

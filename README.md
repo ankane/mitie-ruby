@@ -1,6 +1,9 @@
 # MITIE
 
-[MITIE](https://github.com/mit-nlp/MITIE) - named-entity recognition - for Ruby
+[MITIE](https://github.com/mit-nlp/MITIE) - named-entity recognition and binary relation detection - for Ruby
+
+- Finds people, organization, and locations
+- Detects relationships between entities, like `PERSON` was born in `LOCATION`
 
 [![Build Status](https://travis-ci.org/ankane/mitie.svg?branch=master)](https://travis-ci.org/ankane/mitie) [![Build status](https://ci.appveyor.com/api/projects/status/stc89tc57xfva451/branch/master?svg=true)](https://ci.appveyor.com/project/ankane/mitie/branch/master)
 
@@ -20,22 +23,22 @@ And download the pre-trained model for your language:
 
 ## Getting Started
 
-Get your text
-
-```ruby
-text = "Nat Friedman is the CEO of GitHub, which is headquartered in San Francisco"
-```
-
 Load an NER model
 
 ```ruby
 model = Mitie::NER.new("ner_model.dat")
 ```
 
+Create a document
+
+```ruby
+doc = model.doc("Nat Friedman is the CEO of GitHub, which is headquartered in San Francisco")
+```
+
 Get entities
 
 ```ruby
-model.entities(text)
+doc.entities
 ```
 
 This returns
@@ -51,19 +54,51 @@ This returns
 Get tokens
 
 ```ruby
-model.tokens(text)
+doc.tokens
 ```
 
 Get tokens and their offset
 
 ```ruby
-model.tokens_with_offset(text)
+doc.tokens_with_offset
 ```
 
 Get all tags for a model
 
 ```ruby
 model.tags
+```
+
+## Binary Relation Detection
+
+Detect relationships betweens two entities, like:
+
+- `FILM` was directed by `PERSON`
+- `PERSON` was born in `LOCATION`
+- `ORGANIZATION` was founded in `LOCATION`
+
+Create a detector
+
+```ruby
+detector = Mitie::BinaryRelationDetector.new("rel_classifier_film.film.directed_by.svm")
+```
+
+And a document
+
+```ruby
+doc = model.doc("The Shawshank Redemption was directed by Frank Darabont")
+```
+
+Get binary relations
+
+```ruby
+detector.binary_relations(doc)
+```
+
+This returns
+
+```ruby
+[{first: "Shawshank Redemption", second: "Frank Darabont", score: 1.124211742912441}]
 ```
 
 ## History
@@ -86,5 +121,7 @@ git clone https://github.com/ankane/mitie.git
 cd mitie
 bundle install
 bundle exec rake vendor:all
-MITIE_NER_PATH=path/to/ner_model.dat bundle exec rake test
+
+export MITIE_MODELS_PATH=path/to/MITIE-models/english
+bundle exec rake test
 ```

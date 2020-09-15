@@ -45,7 +45,9 @@ module Mitie
               text: text[offset...finish],
               tag: tag,
               score: score,
-              offset: offset
+              offset: offset,
+              token_index: pos,
+              token_length: len
             }
           end
           entities
