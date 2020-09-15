@@ -16,8 +16,7 @@ class DocumentTest < Minitest::Test
       {:text=>"GitHub", :tag=>"ORGANIZATION", :score=>0.3446416512516501, :token_index=>6, :token_length=>1},
       {:text=>"San Francisco", :tag=>"LOCATION", :score=>1.428241888939011, :token_index=>12, :token_length=>2}
     ]
-    tokens = ["Nat", "Friedman", "is", "the", "CEO", "of", "GitHub", ",", "which", "is", "headquartered", "in", "San", "Francisco"]
-    assert_equal expected, model.doc(tokens).entities
+    assert_equal expected, token_doc.entities
   end
 
   def test_tokens
@@ -27,7 +26,7 @@ class DocumentTest < Minitest::Test
 
   def test_tokens_tokens
     expected = ["Nat", "Friedman", "is", "the", "CEO", "of", "GitHub", ",", "which", "is", "headquartered", "in", "San", "Francisco"]
-    assert_equal expected, model.doc(expected).tokens
+    assert_equal expected, token_doc.tokens
   end
 
   def test_tokens_with_offset
@@ -37,8 +36,7 @@ class DocumentTest < Minitest::Test
 
   def test_tokens_with_offset_tokens
     expected = [["Nat", nil], ["Friedman", nil], ["is", nil], ["the", nil], ["CEO", nil], ["of", nil], ["GitHub", nil], [",", nil], ["which", nil], ["is", nil], ["headquartered", nil], ["in", nil], ["San", nil], ["Francisco", nil]]
-    tokens = ["Nat", "Friedman", "is", "the", "CEO", "of", "GitHub", ",", "which", "is", "headquartered", "in", "San", "Francisco"]
-    assert_equal expected, model.doc(tokens).tokens_with_offset
+    assert_equal expected, token_doc.tokens_with_offset
   end
 
   def test_tokens_utf8
@@ -54,5 +52,13 @@ class DocumentTest < Minitest::Test
 
   def doc
     model.doc(text)
+  end
+
+  def token_doc
+    model.doc(tokens)
+  end
+
+  def tokens
+    ["Nat", "Friedman", "is", "the", "CEO", "of", "GitHub", ",", "which", "is", "headquartered", "in", "San", "Francisco"]
   end
 end
