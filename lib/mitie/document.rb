@@ -14,6 +14,7 @@ module Mitie
     def tokens_with_offset
       @tokens_with_offset ||= begin
         if text.is_a?(Array)
+          # offsets are unknown when given tokens
           text.map { |v| [v, nil] }
         else
           i = 0
