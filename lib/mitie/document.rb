@@ -4,7 +4,7 @@ module Mitie
 
     def initialize(model, text)
       @model = model
-      @text = text
+      @text = text.to_s
     end
 
     def tokens
