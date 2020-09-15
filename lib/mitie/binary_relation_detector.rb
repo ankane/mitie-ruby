@@ -11,7 +11,7 @@ module Mitie
       FFI.mitie_binary_relation_detector_name_string(pointer).to_s
     end
 
-    def binary_relations(doc)
+    def relations(doc)
       entities = doc.entities
       combinations = []
       (entities.size - 1).times do |i|
@@ -19,7 +19,7 @@ module Mitie
         combinations << [entities[i + 1], entities[i]]
       end
 
-      binary_relations = []
+      relations = []
       combinations.each do |entity1, entity2|
         relation =
           FFI.mitie_extract_binary_relation(
@@ -36,14 +36,14 @@ module Mitie
         raise "Bad status: #{status}" if status != 0
         score = score_ptr.to_s(Fiddle::SIZEOF_DOUBLE).unpack1("d")
         if score > 0
-          binary_relations << {
+          relations << {
             first: entity1[:text],
             second: entity2[:text],
             score: score
           }
         end
       end
-      binary_relations
+      relations
     end
 
     private

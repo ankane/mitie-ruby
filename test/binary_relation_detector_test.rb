@@ -6,13 +6,13 @@ class BinaryRelationDetectorTest < Minitest::Test
     assert_equal "film.film.directed_by", detector.name
     doc = model.doc("The Shawshank Redemption was directed by Frank Darabont and starred Tim Robbins and Morgan Freeman")
 
-    binary_relations = detector.binary_relations(doc)
-    assert_equal 1, binary_relations.size
+    relations = detector.relations(doc)
+    assert_equal 1, relations.size
 
-    binary_relation = binary_relations.first
-    assert_equal "Shawshank Redemption", binary_relation[:first]
-    assert_equal "Frank Darabont", binary_relation[:second]
-    assert binary_relation[:score]
+    relation = relations.first
+    assert_equal "Shawshank Redemption", relation[:first]
+    assert_equal "Frank Darabont", relation[:second]
+    assert relation[:score]
   end
 
   def test_place_founded
@@ -20,12 +20,12 @@ class BinaryRelationDetectorTest < Minitest::Test
     assert_equal "organization.organization.place_founded", detector.name
     doc = model.doc("Google was founded in Menlo Park, CA by Larry Page and Sergey Brin")
 
-    binary_relations = detector.binary_relations(doc)
-    assert_equal 1, binary_relations.size
+    relations = detector.relations(doc)
+    assert_equal 1, relations.size
 
-    binary_relation = binary_relations.first
-    assert_equal "Google", binary_relation[:first]
-    assert_equal "Menlo Park", binary_relation[:second]
-    assert binary_relation[:score]
+    relation = relations.first
+    assert_equal "Google", relation[:first]
+    assert_equal "Menlo Park", relation[:second]
+    assert relation[:score]
   end
 end

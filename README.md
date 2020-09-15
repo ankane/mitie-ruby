@@ -89,10 +89,10 @@ And a document
 doc = model.doc("The Shawshank Redemption was directed by Frank Darabont")
 ```
 
-Get binary relations
+Get relations
 
 ```ruby
-detector.binary_relations(doc)
+detector.relations(doc)
 ```
 
 This returns
