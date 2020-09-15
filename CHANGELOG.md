@@ -1,3 +1,7 @@
+## 0.1.3 (unreleased)
+
+- Added support for custom tokenization
+
 ## 0.1.2 (2020-09-14)
 
 - Added binary relation detection

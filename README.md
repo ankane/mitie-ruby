@@ -69,6 +69,12 @@ Get all tags for a model
 model.tags
 ```
 
+MITIE has built-in tokenization, but you can also do your own tokenization [master]
+
+```ruby
+doc = model.doc(["Nat", "Friedman", "is", "the", "CEO", "of", "GitHub"])
+```
+
 ## Binary Relation Detection
 
 Detect relationships betweens two entities, like:
