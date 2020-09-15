@@ -51,7 +51,7 @@ module Mitie
               finish = tok[-1][1] + tok[-1][0].size
               entity[:text] = text[offset...finish]
             else
-              entity[:text] = tok.map(&:first).join(" ")
+              entity[:text] = tok.map(&:first)
             end
             entity[:tag] = tag
             entity[:score] = score

@@ -12,9 +12,9 @@ class DocumentTest < Minitest::Test
 
   def test_entities_tokens
     expected = [
-      {:text=>"Nat Friedman", :tag=>"PERSON", :score=>1.099661347535191, :token_index=>0, :token_length=>2},
-      {:text=>"GitHub", :tag=>"ORGANIZATION", :score=>0.3446416512516501, :token_index=>6, :token_length=>1},
-      {:text=>"San Francisco", :tag=>"LOCATION", :score=>1.428241888939011, :token_index=>12, :token_length=>2}
+      {:text=>["Nat", "Friedman"], :tag=>"PERSON", :score=>1.099661347535191, :token_index=>0, :token_length=>2},
+      {:text=>["GitHub"], :tag=>"ORGANIZATION", :score=>0.3446416512516501, :token_index=>6, :token_length=>1},
+      {:text=>["San", "Francisco"], :tag=>"LOCATION", :score=>1.428241888939011, :token_index=>12, :token_length=>2}
     ]
     assert_equal expected, token_doc.entities
   end
