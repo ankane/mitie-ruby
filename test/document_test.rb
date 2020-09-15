@@ -19,6 +19,11 @@ class DocumentTest < Minitest::Test
     assert_equal expected, token_doc.entities
   end
 
+  def test_entities_location
+    # would ideally return a single location
+    assert_equal ["San Francisco", "California"], model.doc("San Francisco, California").entities.map { |e| e[:text] }
+  end
+
   def test_tokens
     expected = ["Nat", "Friedman", "is", "the", "CEO", "of", "GitHub", ",", "which", "is", "headquartered", "in", "San", "Francisco"]
     assert_equal expected, doc.tokens
