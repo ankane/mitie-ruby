@@ -1,4 +1,4 @@
-## 0.1.2 (unreleased)
+## 0.1.2 (2020-09-14)
 
 - Added binary relation detection
 - Added `Document` class
