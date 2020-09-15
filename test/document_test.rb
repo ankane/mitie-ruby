@@ -15,13 +15,20 @@ class DocumentTest < Minitest::Test
     assert_equal expected_tokens, doc.tokens
   end
 
+  def test_tokens_with_offset
+    expected_tokens_with_offset = [["Nat", 0], ["Friedman", 4], ["is", 13], ["the", 16], ["CEO", 20], ["of", 24], ["GitHub", 27], [",", 33], ["which", 35], ["is", 41], ["headquartered", 44], ["in", 58], ["San", 61], ["Francisco", 65]]
+    assert_equal expected_tokens_with_offset, doc.tokens_with_offset
+  end
+
   def test_tokens_utf8
     assert_equal ["“", "hello", "”"], model.doc("“hello”").tokens
   end
 
-  def test_tokens_with_offset
-    expected_tokens_with_offset = [["Nat", 0], ["Friedman", 4], ["is", 13], ["the", 16], ["CEO", 20], ["of", 24], ["GitHub", 27], [",", 33], ["which", 35], ["is", 41], ["headquartered", 44], ["in", 58], ["San", 61], ["Francisco", 65]]
-    assert_equal expected_tokens_with_offset, doc.tokens_with_offset
+  def test_tokens_with_offset_utf8
+    # https://github.com/mit-nlp/MITIE/issues/211
+    skip "Possible bug with MITIE"
+
+    assert_equal [["“", 0], ["hello", 1], ["”", 6]], model.doc("“hello”").tokens_with_offset
   end
 
   def doc
