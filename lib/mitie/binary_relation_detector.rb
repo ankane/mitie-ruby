@@ -12,6 +12,8 @@ module Mitie
     end
 
     def relations(doc)
+      raise ArgumentError, "Expected Mitie::Document, not #{doc.class.name}" unless doc.is_a?(Document)
+
       entities = doc.entities
       combinations = []
       (entities.size - 1).times do |i|

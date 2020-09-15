@@ -29,6 +29,14 @@ class BinaryRelationDetectorTest < Minitest::Test
     assert relation[:score]
   end
 
+  def test_non_document
+    detector = Mitie::BinaryRelationDetector.new("#{models_path}/binary_relations/rel_classifier_film.film.directed_by.svm")
+    error = assert_raises(ArgumentError) do
+      detector.relations("Hi")
+    end
+    assert_equal "Expected Mitie::Document, not String", error.message
+  end
+
   def test_missing_file
     error = assert_raises(ArgumentError) do
       Mitie::BinaryRelationDetector.new("missing.dat")
