@@ -32,7 +32,7 @@ model = Mitie::NER.new("ner_model.dat")
 Create a document
 
 ```ruby
-doc = model.doc("Nat Friedman is the CEO of GitHub, which is headquartered in San Francisco")
+doc = model.doc("Nat works at GitHub in San Francisco")
 ```
 
 Get entities
@@ -45,9 +45,9 @@ This returns
 
 ```ruby
 [
-  {text: "Nat Friedman",  tag: "PERSON",       score: 1.099661347535191, offset: 0},
-  {text: "GitHub",        tag: "ORGANIZATION", score: 0.344641651251650, offset: 27},
-  {text: "San Francisco", tag: "LOCATION",     score: 1.428241888939011, offset: 61}
+  {text: "Nat",           tag: "PERSON",       score: 0.3112371212688382, offset: 0},
+  {text: "GitHub",        tag: "ORGANIZATION", score: 0.5660115198329334, offset: 13},
+  {text: "San Francisco", tag: "LOCATION",     score: 1.3890524313885309, offset: 23}
 ]
 ```
 
@@ -82,13 +82,13 @@ There are 21 detectors for English. You can find them in the `binary_relations` 
 Load a detector
 
 ```ruby
-detector = Mitie::BinaryRelationDetector.new("rel_classifier_film.film.directed_by.svm")
+detector = Mitie::BinaryRelationDetector.new("rel_classifier_organization.organization.place_founded.svm")
 ```
 
 And create a document
 
 ```ruby
-doc = model.doc("The Shawshank Redemption was directed by Frank Darabont")
+doc = model.doc("Shopify was founded in Ottawa")
 ```
 
 Get relations
@@ -100,7 +100,7 @@ detector.relations(doc)
 This returns
 
 ```ruby
-[{first: "Shawshank Redemption", second: "Frank Darabont", score: 1.124211742912441}]
+[{first: "Shopify", second: "Ottawa", score: 0.17649169745814464}]
 ```
 
 ## History

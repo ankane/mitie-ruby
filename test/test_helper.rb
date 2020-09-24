@@ -14,6 +14,6 @@ class Minitest::Test
   end
 
   def text
-    "Nat Friedman is the CEO of GitHub, which is headquartered in San Francisco"
+    "Nat works at GitHub in San Francisco"
   end
 end

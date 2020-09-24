@@ -18,14 +18,14 @@ class BinaryRelationDetectorTest < Minitest::Test
   def test_place_founded
     detector = Mitie::BinaryRelationDetector.new("#{models_path}/binary_relations/rel_classifier_organization.organization.place_founded.svm")
     assert_equal "organization.organization.place_founded", detector.name
-    doc = model.doc("Google was founded in Menlo Park, CA by Larry Page and Sergey Brin")
+    doc = model.doc("Shopify was founded in Ottawa")
 
     relations = detector.relations(doc)
     assert_equal 1, relations.size
 
     relation = relations.first
-    assert_equal "Google", relation[:first]
-    assert_equal "Menlo Park", relation[:second]
+    assert_equal "Shopify", relation[:first]
+    assert_equal "Ottawa", relation[:second]
     assert relation[:score]
   end
 
