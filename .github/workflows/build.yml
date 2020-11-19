@@ -16,8 +16,8 @@ jobs:
         bundler-cache: true
     - uses: actions/cache@v2
       with:
-        path: models
-        key: models-v2
+        path: MITIE-models
+        key: models-v3
       id: cache-models
     - name: Download models
       if: steps.cache-models.outputs.cache-hit != 'true'
@@ -27,4 +27,4 @@ jobs:
     - run: bundle exec rake vendor:all
     - run: bundle exec rake test
       env:
-        MITIE_MODELS_PATH: models/english
+        MITIE_MODELS_PATH: MITIE-models/english
