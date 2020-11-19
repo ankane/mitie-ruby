@@ -17,14 +17,12 @@ jobs:
     - uses: actions/cache@v2
       with:
         path: models
-        key: models-v1
+        key: models-v2
       id: cache-models
     - name: Download models
       if: steps.cache-models.outputs.cache-hit != 'true'
       run: |
-        mkdir models
-        cd models
-        wget -q -O models.tar.bz https://github.com/mit-nlp/MITIE/releases/download/v0.4/MITIE-models-v0.2.tar.bz2
+        wget -q -O models.tar.bz2 https://github.com/mit-nlp/MITIE/releases/download/v0.4/MITIE-models-v0.2.tar.bz2
         tar xfj models.tar.bz2
     - run: bundle exec rake vendor:all
     - run: bundle exec rake test
