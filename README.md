@@ -5,7 +5,7 @@
 - Finds people, organizations, and locations in text
 - Detects relationships between entities, like `PERSON` was born in `LOCATION`
 
-[![Build Status](https://travis-ci.org/ankane/mitie.svg?branch=master)](https://travis-ci.org/ankane/mitie) [![Build status](https://ci.appveyor.com/api/projects/status/stc89tc57xfva451/branch/master?svg=true)](https://ci.appveyor.com/project/ankane/mitie/branch/master)
+[![Build Status](https://github.com/ankane/mitie/workflows/build/badge.svg?branch=master)](https://github.com/ankane/mitie/actions)
 
 ## Installation
 

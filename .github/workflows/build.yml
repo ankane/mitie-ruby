@@ -1,0 +1,32 @@
+name: build
+on: [push, pull_request]
+jobs:
+  build:
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.7
+        bundler-cache: true
+    - uses: actions/cache@v2
+      with:
+        path: models
+        key: models-v1
+      id: cache-models
+    - name: Download models
+      if: steps.cache-models.outputs.cache-hit != 'true'
+      run: |
+        mkdir models
+        cd models
+        wget -q -O models.tar.bz https://github.com/mit-nlp/MITIE/releases/download/v0.4/MITIE-models-v0.2.tar.bz2
+        tar xfj models.tar.bz2
+    - run: bundle exec rake vendor:all
+    - run: bundle exec rake test
+      env:
+        MITIE_MODELS_PATH: models/english
