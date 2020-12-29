@@ -24,6 +24,7 @@ namespace :vendor do
 
   task :mac do
     download_file("libmitie.dylib")
+    download_file("libmitie.arm64.dylib")
   end
 
   task :windows do

@@ -16,6 +16,8 @@ module Mitie
   lib_name =
     if Gem.win_platform?
       "mitie.dll"
+    elsif RbConfig::CONFIG["arch"] =~ /arm64-darwin/i
+      "libmitie.arm64.dylib"
     elsif RbConfig::CONFIG["host_os"] =~ /darwin/i
       "libmitie.dylib"
     else
