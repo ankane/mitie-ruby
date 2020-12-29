@@ -1,4 +1,4 @@
-## 0.1.4 (unreleased)
+## 0.1.4 (2020-12-28)
 
 - Added ARM shared library for Mac
 
