@@ -1,3 +1,7 @@
+## 0.1.5 (unreleased)
+
+- Fixed issue with multibyte characters
+
 ## 0.1.4 (2020-12-28)
 
 - Added ARM shared library for Mac

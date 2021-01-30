@@ -24,6 +24,11 @@ class DocumentTest < Minitest::Test
     assert_equal ["San Francisco", "California"], model.doc("San Francisco, California").entities.map { |e| e[:text] }
   end
 
+  def test_entities_byte_order_mark
+    expected = [{:text=>"California", :tag=>"LOCATION", :score=>1.4244816233933328, :offset=>12, :token_index=>2, :token_length=>1}]
+    assert_equal expected, model.doc("\xEF\xBB\xBFWorks in California").entities
+  end
+
   def test_tokens
     expected = ["Nat", "works", "at", "GitHub", "in", "San", "Francisco"]
     assert_equal expected, doc.tokens

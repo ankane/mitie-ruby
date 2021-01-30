@@ -48,8 +48,8 @@ module Mitie
 
             entity = {}
             if offset
-              finish = tok[-1][1] + tok[-1][0].size
-              entity[:text] = text[offset...finish]
+              finish = tok[-1][1] + tok[-1][0].bytesize
+              entity[:text] = text.byteslice(offset...finish)
             else
               entity[:text] = tok.map(&:first)
             end
