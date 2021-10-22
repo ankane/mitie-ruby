@@ -4,7 +4,7 @@ Gem::Specification.new do |spec|
   spec.name          = "mitie"
   spec.version       = Mitie::VERSION
   spec.summary       = "Named-entity recognition for Ruby"
-  spec.homepage      = "https://github.com/ankane/mitie"
+  spec.homepage      = "https://github.com/ankane/mitie-ruby"
   spec.license       = "BSL-1.0"
 
   spec.author        = "Andrew Kane"

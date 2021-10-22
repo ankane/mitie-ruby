@@ -1,11 +1,11 @@
-# MITIE
+# MITIE Ruby
 
 [MITIE](https://github.com/mit-nlp/MITIE) - named-entity recognition and binary relation detection - for Ruby
 
 - Finds people, organizations, and locations in text
 - Detects relationships between entities, like `PERSON` was born in `LOCATION`
 
-[![Build Status](https://github.com/ankane/mitie/workflows/build/badge.svg?branch=master)](https://github.com/ankane/mitie/actions)
+[![Build Status](https://github.com/ankane/mitie-ruby/workflows/build/badge.svg?branch=master)](https://github.com/ankane/mitie-ruby/actions)
 
 ## Installation
 
@@ -105,22 +105,22 @@ This returns
 
 ## History
 
-View the [changelog](https://github.com/ankane/mitie/blob/master/CHANGELOG.md)
+View the [changelog](https://github.com/ankane/mitie-ruby/blob/master/CHANGELOG.md)
 
 ## Contributing
 
 Everyone is encouraged to help improve this project. Here are a few ways you can help:
 
-- [Report bugs](https://github.com/ankane/mitie/issues)
-- Fix bugs and [submit pull requests](https://github.com/ankane/mitie/pulls)
+- [Report bugs](https://github.com/ankane/mitie-ruby/issues)
+- Fix bugs and [submit pull requests](https://github.com/ankane/mitie-ruby/pulls)
 - Write, clarify, or fix documentation
 - Suggest or add new features
 
 To get started with development:
 
 ```sh
-git clone https://github.com/ankane/mitie.git
-cd mitie
+git clone https://github.com/ankane/mitie-ruby.git
+cd mitie-ruby
 bundle install
 bundle exec rake vendor:all
 
