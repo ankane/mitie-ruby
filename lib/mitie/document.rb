@@ -84,11 +84,7 @@ module Mitie
     def tokenize
       @tokenize ||= begin
         if text.is_a?(Array)
-          # malloc uses memset to set all bytes to 0
-          tokens_ptr = Fiddle::Pointer.malloc(Fiddle::SIZEOF_VOIDP * (text.size + 1))
-          text.size.times do |i|
-            tokens_ptr[i * Fiddle::SIZEOF_VOIDP, Fiddle::SIZEOF_VOIDP] = Fiddle::Pointer.to_ptr(text[i]).ref
-          end
+          tokens_ptr = Utils.array_to_pointer(text)
           [tokens_ptr, nil]
         else
           offsets_ptr = Fiddle::Pointer.malloc(Fiddle::SIZEOF_VOIDP)
