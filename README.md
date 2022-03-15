@@ -69,6 +69,36 @@ Get all tags for a model
 model.tags
 ```
 
+### Training a Named Entity Extractor
+
+Load a MITIE NER model into a trainer
+
+```ruby
+trainer = Mitie::NERTrainer.new("total_word_feature_extractor.dat")
+```
+
+Create training instances to train against
+
+```ruby
+sample = Mitie::NERTrainingInstance.new(["My", "name", "is", "Hoots", "Owl", "and", "I", "work", "for", "Birdland", "."])
+sample.add_entity(3...5, "person") # Hoots Owl
+sample.add_entity(9...10, "org") # Birdland
+```
+
+Add the training instances to the trainer
+
+```ruby
+trainer.add(sample)
+```
+
+Train the NER and start using it
+
+```ruby
+ner = trainer.train
+
+ner.entities(["I", "met", "with", "Oscar", "Grouch", "at", "Grouchland", "."])
+```
+
 ## Binary Relation Detection
 
 Detect relationships betweens two entities, like:

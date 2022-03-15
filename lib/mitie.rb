@@ -6,6 +6,7 @@ require "mitie/binary_relation_detector"
 require "mitie/document"
 require "mitie/ner"
 require "mitie/ner_training_instance"
+require "mitie/ner_trainer"
 require "mitie/utils"
 require "mitie/version"
 
