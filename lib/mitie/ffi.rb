@@ -26,6 +26,12 @@ module Mitie
     extern "const char* mitie_ner_get_detection_tagstr(const mitie_named_entity_detections* dets, unsigned long idx)"
     extern "double mitie_ner_get_detection_score(const mitie_named_entity_detections* dets, unsigned long idx)"
 
+    extern "mitie_ner_training_instance* mitie_create_ner_training_instance(char** tokens)"
+    extern "unsigned long mitie_ner_training_instance_num_entities(const mitie_ner_training_instance* instance)"
+    extern "unsigned long mitie_ner_training_instance_num_tokens(const mitie_ner_training_instance* instance)"
+    extern "int mitie_overlaps_any_entity(mitie_ner_training_instance* instance, unsigned long start, unsigned long length)"
+    extern "int mitie_add_ner_training_entity(mitie_ner_training_instance* instance, unsigned long start, unsigned long length, const char* label)"
+
     extern "mitie_binary_relation_detector* mitie_load_binary_relation_detector(const char* filename)"
     extern "const char* mitie_binary_relation_detector_name_string(const mitie_binary_relation_detector* detector)"
     extern "int mitie_entities_overlap(unsigned long arg1_start, unsigned long arg1_length, unsigned long arg2_start, unsigned long arg2_length)"
