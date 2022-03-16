@@ -13,6 +13,7 @@ module Mitie
     extern "void mitie_free(void* object)"
     extern "char** mitie_tokenize(const char* text)"
     extern "char** mitie_tokenize_with_offsets(const char* text, unsigned long** token_offsets)"
+    extern "int mitie_save_named_entity_extractor(const char* filename, const mitie_named_entity_extractor* ner)"
 
     extern "mitie_named_entity_extractor* mitie_load_named_entity_extractor(const char* filename)"
     extern "unsigned long mitie_get_num_possible_ner_tags(const mitie_named_entity_extractor* ner)"

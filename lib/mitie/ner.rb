@@ -30,6 +30,13 @@ module Mitie
       doc(text).entities
     end
 
+    def save_to_disk(filename)
+      if FFI.mitie_save_named_entity_extractor(filename, pointer) != 0
+        raise "Unable to save NER to the file #{filename}"
+      end
+      nil
+    end
+
     def tokens(text)
       doc(text).tokens
     end

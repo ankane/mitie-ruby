@@ -99,6 +99,12 @@ ner = trainer.train
 ner.entities(["I", "met", "with", "Oscar", "Grouch", "at", "Grouchland", "."])
 ```
 
+Save the trained model
+
+```ruby
+ner.save_to_disk("my_model.dat")
+```
+
 ## Binary Relation Detection
 
 Detect relationships betweens two entities, like:
