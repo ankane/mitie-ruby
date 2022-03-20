@@ -34,4 +34,15 @@ class NERTest < Minitest::Test
     end
     assert_equal "File does not exist", error.message
   end
+
+  def test_save_to_disk
+    tempfile = Tempfile.new
+
+    model.save_to_disk(tempfile.path)
+
+    assert File.exist?(tempfile.path)
+  ensure
+    tempfile.close
+    tempfile.unlink
+  end
 end

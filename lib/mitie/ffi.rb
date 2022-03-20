@@ -13,6 +13,7 @@ module Mitie
     extern "void mitie_free(void* object)"
     extern "char** mitie_tokenize(const char* text)"
     extern "char** mitie_tokenize_with_offsets(const char* text, unsigned long** token_offsets)"
+    extern "int mitie_save_named_entity_extractor(const char* filename, const mitie_named_entity_extractor* ner)"
 
     extern "mitie_named_entity_extractor* mitie_load_named_entity_extractor(const char* filename)"
     extern "unsigned long mitie_get_num_possible_ner_tags(const mitie_named_entity_extractor* ner)"
@@ -25,6 +26,21 @@ module Mitie
     extern "unsigned long mitie_ner_get_detection_tag(const mitie_named_entity_detections* dets, unsigned long idx)"
     extern "const char* mitie_ner_get_detection_tagstr(const mitie_named_entity_detections* dets, unsigned long idx)"
     extern "double mitie_ner_get_detection_score(const mitie_named_entity_detections* dets, unsigned long idx)"
+
+    extern "mitie_ner_training_instance* mitie_create_ner_training_instance(char** tokens)"
+    extern "unsigned long mitie_ner_training_instance_num_entities(const mitie_ner_training_instance* instance)"
+    extern "unsigned long mitie_ner_training_instance_num_tokens(const mitie_ner_training_instance* instance)"
+    extern "int mitie_overlaps_any_entity(mitie_ner_training_instance* instance, unsigned long start, unsigned long length)"
+    extern "int mitie_add_ner_training_entity(mitie_ner_training_instance* instance, unsigned long start, unsigned long length, const char* label)"
+
+    extern "mitie_ner_trainer* mitie_create_ner_trainer(const char* filename)"
+    extern "unsigned long mitie_ner_trainer_size(const mitie_ner_trainer* trainer)"
+    extern "int mitie_add_ner_training_instance(mitie_ner_trainer* trainer, const mitie_ner_training_instance* instance)"
+    extern "void mitie_ner_trainer_set_beta(mitie_ner_trainer* trainer, double beta)"
+    extern "double mitie_ner_trainer_get_beta(const mitie_ner_trainer* trainer)"
+    extern "void mitie_ner_trainer_set_num_threads(mitie_ner_trainer* trainer, unsigned long num_threads)"
+    extern "unsigned long mitie_ner_trainer_get_num_threads(const mitie_ner_trainer* trainer)"
+    extern "mitie_named_entity_extractor* mitie_train_named_entity_extractor(const mitie_ner_trainer* trainer)"
 
     extern "mitie_binary_relation_detector* mitie_load_binary_relation_detector(const char* filename)"
     extern "const char* mitie_binary_relation_detector_name_string(const mitie_binary_relation_detector* detector)"

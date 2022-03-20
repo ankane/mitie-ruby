@@ -2,11 +2,18 @@ module Mitie
   class NER
     attr_reader :pointer
 
-    def initialize(path)
-      # better error message
-      raise ArgumentError, "File does not exist" unless File.exist?(path)
-      @pointer = FFI.mitie_load_named_entity_extractor(path)
-      ObjectSpace.define_finalizer(self, self.class.finalize(pointer))
+    def initialize(path = nil, pointer: nil)
+      if path
+        # better error message
+        raise ArgumentError, "File does not exist" unless File.exist?(path)
+        @pointer = FFI.mitie_load_named_entity_extractor(path)
+      elsif pointer
+        @pointer = pointer
+      else
+        raise ArgumentError, "Must pass either a path or a pointer"
+      end
+
+      ObjectSpace.define_finalizer(self, self.class.finalize(@pointer))
     end
 
     def tags
@@ -21,6 +28,13 @@ module Mitie
 
     def entities(text)
       doc(text).entities
+    end
+
+    def save_to_disk(filename)
+      if FFI.mitie_save_named_entity_extractor(filename, pointer) != 0
+        raise "Unable to save NER to the file #{filename}"
+      end
+      nil
     end
 
     def tokens(text)
