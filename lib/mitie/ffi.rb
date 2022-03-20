@@ -10,6 +10,8 @@ module Mitie
       raise e
     end
 
+    # https://github.com/mit-nlp/MITIE/blob/master/mitielib/include/mitie.h
+
     extern "void mitie_free(void* object)"
     extern "char** mitie_tokenize(const char* text)"
     extern "char** mitie_tokenize_with_offsets(const char* text, unsigned long** token_offsets)"
