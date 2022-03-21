@@ -12,7 +12,7 @@
 Add this line to your application’s Gemfile:
 
 ```ruby
-gem 'mitie'
+gem "mitie"
 ```
 
 And download the pre-trained model for your language:
@@ -69,40 +69,38 @@ Get all tags for a model
 model.tags
 ```
 
-### Training a Named Entity Extractor
+## Training [unreleased]
 
-Load a MITIE NER model into a trainer
+Load an NER model into a trainer
 
 ```ruby
 trainer = Mitie::NERTrainer.new("total_word_feature_extractor.dat")
 ```
 
-Create training instances to train against
+Create training instances
 
 ```ruby
-sample = Mitie::NERTrainingInstance.new(["My", "name", "is", "Hoots", "Owl", "and", "I", "work", "for", "Birdland", "."])
-sample.add_entity(3...5, "person") # Hoots Owl
-sample.add_entity(9...10, "org") # Birdland
+instance = Mitie::NERTrainingInstance.new(["Kickstarter", "is", "headquartered", "in", "New", "York"])
+instance.add_entity(0..0, "organization") # Kickstarter
+instance.add_entity(4..5, "location")     # New York
 ```
 
 Add the training instances to the trainer
 
 ```ruby
-trainer.add(sample)
+trainer.add(instance)
 ```
 
-Train the NER and start using it
+Train the model
 
 ```ruby
-ner = trainer.train
-
-ner.entities(["I", "met", "with", "Oscar", "Grouch", "at", "Grouchland", "."])
+model = trainer.train
 ```
 
-Save the trained model
+Save the model
 
 ```ruby
-ner.save_to_disk("my_model.dat")
+model.save_to_disk("ner_model.dat")
 ```
 
 ## Binary Relation Detection
