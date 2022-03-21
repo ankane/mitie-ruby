@@ -1,7 +1,7 @@
 module Mitie
   class NERTrainer
     def initialize(filename)
-      raise ArgumentError, "File `#{filename}' does not exist" unless File.exist?(filename)
+      raise ArgumentError, "File does not exist" unless File.exist?(filename)
       @pointer = FFI.mitie_create_ner_trainer(filename)
 
       ObjectSpace.define_finalizer(self, self.class.finalize(@pointer))

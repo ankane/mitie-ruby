@@ -47,6 +47,13 @@ class NERTrainerTest < Minitest::Test
     assert_equal "You can't call train() on an empty trainer", error.message
   end
 
+  def test_missing_file
+    error = assert_raises(ArgumentError) do
+      Mitie::NERTrainer.new("missing.dat")
+    end
+    assert_equal "File does not exist", error.message
+  end
+
   private
 
   def feature_extractor
