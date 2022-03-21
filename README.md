@@ -15,7 +15,7 @@ Add this line to your application’s Gemfile:
 gem "mitie"
 ```
 
-And download the pre-trained model for your language:
+And download the pre-trained models for your language:
 
 - [English](https://github.com/mit-nlp/MITIE/releases/download/v0.4/MITIE-models-v0.2.tar.bz2)
 - [Spanish](https://github.com/mit-nlp/MITIE/releases/download/v0.4/MITIE-models-v0.2-Spanish.zip)
