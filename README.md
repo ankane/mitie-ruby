@@ -138,6 +138,14 @@ This returns
 [{first: "Shopify", second: "Ottawa", score: 0.17649169745814464}]
 ```
 
+## Deployment
+
+Check out [Trove](https://github.com/ankane/trove) for deploying models.
+
+```sh
+trove push ner_model.dat
+```
+
 ## History
 
 View the [changelog](https://github.com/ankane/mitie-ruby/blob/master/CHANGELOG.md)
