@@ -69,7 +69,7 @@ Get all tags for a model
 model.tags
 ```
 
-## Training [unreleased]
+## Training
 
 Load an NER model into a trainer
 

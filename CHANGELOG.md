@@ -1,4 +1,4 @@
-## 0.1.6 (unreleased)
+## 0.1.6 (2022-03-20)
 
 - Added support for training NER models
 - Improved ARM detection
