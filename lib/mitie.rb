@@ -19,10 +19,12 @@ module Mitie
   lib_name =
     if Gem.win_platform?
       "mitie.dll"
-    elsif RbConfig::CONFIG["arch"] =~ /arm64-darwin/i
-      "libmitie.arm64.dylib"
     elsif RbConfig::CONFIG["host_os"] =~ /darwin/i
-      "libmitie.dylib"
+      if RbConfig::CONFIG["host_cpu"] =~ /arm|aarch64/i
+        "libmitie.arm64.dylib"
+      else
+        "libmitie.dylib"
+      end
     else
       "libmitie.so"
     end
