@@ -22,10 +22,10 @@ class NERTrainerTest < Minitest::Test
   end
 
   def test_train
-    tokens = ["Kickstarter", "is", "headquartered", "in", "New", "York"]
+    tokens = ["You", "can", "do", "machine", "learning", "in", "Ruby", "!"]
     instance = Mitie::NERTrainingInstance.new(tokens)
-    instance.add_entity(0..0, "organization")
-    instance.add_entity(4..5, "location")
+    instance.add_entity(3..4, "topic")
+    instance.add_entity(6..6, "language")
 
     trainer = Mitie::NERTrainer.new(feature_extractor)
     trainer.add(instance)
@@ -34,9 +34,9 @@ class NERTrainerTest < Minitest::Test
 
     assert model.is_a?(Mitie::NER)
 
-    entity = model.doc("Hello New York").entities.first
-    assert_equal "New York", entity[:text]
-    assert_equal "location", entity[:tag]
+    entity = model.doc("Hello Ruby").entities.first
+    assert_equal "Ruby", entity[:text]
+    assert_equal "language", entity[:tag]
   end
 
   def test_empty_trainer

@@ -28,13 +28,13 @@ class NERTrainingInstanceTest < Minitest::Test
   end
 
   def test_num_entities
-    tokens = ["Kickstarter", "is", "headquartered", "in", "New", "York"]
+    tokens = ["You", "can", "do", "machine", "learning", "in", "Ruby", "!"]
     instance = Mitie::NERTrainingInstance.new(tokens)
 
     assert_equal 0, instance.num_entities
 
-    instance.add_entity(0..0, "organization")
-    instance.add_entity(4..5, "location")
+    instance.add_entity(3..4, "topic")
+    instance.add_entity(6..6, "language")
 
     assert_equal 2, instance.num_entities
   end
@@ -46,14 +46,14 @@ class NERTrainingInstanceTest < Minitest::Test
   end
 
   def test_overlaps_any_entity
-    tokens = ["Kickstarter", "is", "headquartered", "in", "New", "York"]
+    tokens = ["You", "can", "do", "machine", "learning", "in", "Ruby", "!"]
     instance = Mitie::NERTrainingInstance.new(tokens)
-    instance.add_entity(0..0, "organization")
-    instance.add_entity(4..5, "location")
+    instance.add_entity(3..4, "topic")
+    instance.add_entity(6..6, "language")
 
-    assert instance.overlaps_any_entity?(0..2)
-    refute instance.overlaps_any_entity?(1..3)
-    assert instance.overlaps_any_entity?(3..4)
+    refute instance.overlaps_any_entity?(1..2)
+    assert instance.overlaps_any_entity?(2..3)
+    refute instance.overlaps_any_entity?(5..5)
   end
 
   def test_overlaps_any_entity_raises_errors

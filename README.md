@@ -80,10 +80,10 @@ trainer = Mitie::NERTrainer.new("total_word_feature_extractor.dat")
 Create training instances
 
 ```ruby
-tokens = ["Kickstarter", "is", "headquartered", "in", "New", "York"]
+tokens = ["You", "can", "do", "machine", "learning", "in", "Ruby", "!"]
 instance = Mitie::NERTrainingInstance.new(tokens)
-instance.add_entity(0..0, "organization") # Kickstarter
-instance.add_entity(4..5, "location")     # New York
+instance.add_entity(3..4, "topic")    # machine learning
+instance.add_entity(6..6, "language") # Ruby
 ```
 
 Add the training instances to the trainer
