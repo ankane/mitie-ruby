@@ -37,12 +37,17 @@ class NERTest < Minitest::Test
 
   def test_save_to_disk
     tempfile = Tempfile.new
-
     model.save_to_disk(tempfile.path)
-
     assert File.exist?(tempfile.path)
   ensure
     tempfile.close
     tempfile.unlink
+  end
+
+  def test_save_to_disk_error
+    error = assert_raises(Mitie::Error) do
+      model.save_to_disk("#{Dir.tmpdir}/missing/ner_model.dat")
+    end
+    assert_equal "Unable to save model", error.message
   end
 end

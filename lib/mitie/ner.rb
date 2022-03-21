@@ -32,7 +32,7 @@ module Mitie
 
     def save_to_disk(filename)
       if FFI.mitie_save_named_entity_extractor(filename, pointer) != 0
-        raise Error, "Unable to save NER to the file #{filename}"
+        raise Error, "Unable to save model"
       end
       nil
     end
