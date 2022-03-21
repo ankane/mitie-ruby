@@ -24,7 +24,7 @@ class NERTrainingInstanceTest < Minitest::Test
     error = assert_raises(ArgumentError) do
       instance.add_entity(2..2, "nope")
     end
-    assert_equal "Overlaps existing entity", error.message
+    assert_equal "Range overlaps existing entity", error.message
   end
 
   def test_num_entities

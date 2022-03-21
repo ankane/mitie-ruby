@@ -16,7 +16,7 @@ module Mitie
         raise ArgumentError, "Invalid range given to `add_entity'"
       end
 
-      raise ArgumentError, "Overlaps existing entity" if overlaps_any_entity?(range)
+      raise ArgumentError, "Range overlaps existing entity" if overlaps_any_entity?(range)
 
       unless FFI.mitie_add_ner_training_entity(@pointer, range.begin, range.size, label).zero?
         raise Error, "Unable to add entity to training instance. Probably ran out of RAM."
