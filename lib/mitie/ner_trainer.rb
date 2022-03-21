@@ -19,7 +19,6 @@ module Mitie
       raise ArgumentError, "beta must be greater than or equal to zero" unless value >= 0
 
       FFI.mitie_ner_trainer_set_beta(@pointer, value)
-      nil
     end
 
     def num_threads
@@ -28,7 +27,6 @@ module Mitie
 
     def num_threads=(value)
       FFI.mitie_ner_trainer_set_num_threads(@pointer, value)
-      nil
     end
 
     def size
@@ -45,7 +43,6 @@ module Mitie
       Mitie::NER.new(pointer: extractor)
     end
 
-    # :nodoc:
     def self.finalize(pointer)
       proc { FFI.mitie_free(pointer) }
     end
