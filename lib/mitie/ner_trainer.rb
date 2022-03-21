@@ -36,11 +36,11 @@ module Mitie
     end
 
     def train
-      raise "You can't call train() on an empty trainer" if size.zero?
+      raise Error, "You can't call train() on an empty trainer" if size.zero?
 
       extractor = FFI.mitie_train_named_entity_extractor(@pointer)
 
-      raise "Unable to create named entity extractor. Probably ran out of RAM." if extractor.null?
+      raise Error, "Unable to create named entity extractor. Probably ran out of RAM." if extractor.null?
 
       Mitie::NER.new(pointer: extractor)
     end

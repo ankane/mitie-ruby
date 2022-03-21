@@ -3,8 +3,6 @@ Bundler.require(:default)
 require "minitest/autorun"
 require "minitest/pride"
 
-require "etc"
-
 class Minitest::Test
   # memoize for performance
   def model
@@ -19,6 +17,7 @@ class Minitest::Test
     "Nat works at GitHub in San Francisco"
   end
 
+  # capture_io does not suppress output
   def silence_stdout
     old_stdout = STDOUT.dup
     STDOUT.reopen(IO::NULL)

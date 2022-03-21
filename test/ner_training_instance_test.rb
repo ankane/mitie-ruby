@@ -1,59 +1,74 @@
-require "test_helper"
+require_relative "test_helper"
 
-module Mitie
-  class NERTrainingInstanceTest < Minitest::Test
-    def test_add_entity_raises_on_invalid_input
-      sample = Mitie::NERTrainingInstance.new(
-        ["I", "raise", "errors", "."]
-      )
-      sample.add_entity((2..2), "noun")
+class NERTrainingInstanceTest < Minitest::Test
+  def test_add_entity_raises_on_invalid_input
+    tokens = ["I", "raise", "errors", "."]
+    instance = Mitie::NERTrainingInstance.new(tokens)
+    instance.add_entity(2..2, "noun")
 
-      assert_raises(ArgumentError) { sample.add_entity(1...1, "nope") }
-      assert_raises(ArgumentError) { sample.add_entity(1...9, "nope") }
-      assert_raises(ArgumentError) { sample.add_entity(-1...2, "nope") }
-      assert_raises(ArgumentError) { sample.add_entity(2..2, "nope") }
+    error = assert_raises(ArgumentError) do
+      instance.add_entity(1...1, "nope")
     end
+    assert_equal "Invalid range given to `add_entity'", error.message
 
-    def test_num_entities
-      sample = Mitie::NERTrainingInstance.new(
-        ["My", "name", "is", "Hoots", "Owl", "and", "I", "work", "for", "Birdland", "."]
-      )
-
-      assert_equal 0, sample.num_entities
-
-      sample.add_entity(3...5, "person")
-      sample.add_entity(9...10, "org")
-
-      assert_equal 2, sample.num_entities
+    error = assert_raises(ArgumentError) do
+      instance.add_entity(1...9, "nope")
     end
+    assert_equal "Invalid range given to `add_entity'", error.message
 
-    def test_num_tokens
-      sample = Mitie::NERTrainingInstance.new(
-        ["I", "have", "five", "tokens", "."]
-      )
-
-      assert_equal 5, sample.num_tokens
+    error = assert_raises(ArgumentError) do
+      instance.add_entity(-1...2, "nope")
     end
+    assert_equal "Invalid range given to `add_entity'", error.message
 
-    def test_overlaps_any_entity
-      sample = Mitie::NERTrainingInstance.new(
-        ["I", "am", "become", "Death", ",", "destroyer", "of", "worlds", "."]
-      )
-      sample.add_entity(0..0, "person")
-      sample.add_entity(3..3, "phenomenon")
-
-      assert sample.overlaps_any_entity?(1..3)
-      refute sample.overlaps_any_entity?(5..8)
+    error = assert_raises(ArgumentError) do
+      instance.add_entity(2..2, "nope")
     end
+    assert_equal "Overlaps existing entity", error.message
+  end
 
-    def test_overlaps_any_entity_raises_errors
-      sample = Mitie::NERTrainingInstance.new(
-        ["I", "raise", "errors", "."]
-      )
-      sample.add_entity(2..2, "noun")
+  def test_num_entities
+    tokens = ["Kickstarter", "is", "headquartered", "in", "New", "York"]
+    instance = Mitie::NERTrainingInstance.new(tokens)
 
-      assert_raises(ArgumentError) { sample.overlaps_any_entity?(1...1) }
-      assert_raises(ArgumentError) { sample.overlaps_any_entity?(9..12) }
+    assert_equal 0, instance.num_entities
+
+    instance.add_entity(0..0, "organization")
+    instance.add_entity(4..5, "location")
+
+    assert_equal 2, instance.num_entities
+  end
+
+  def test_num_tokens
+    tokens = ["I", "have", "five", "tokens", "."]
+    instance = Mitie::NERTrainingInstance.new(tokens)
+    assert_equal 5, instance.num_tokens
+  end
+
+  def test_overlaps_any_entity
+    tokens = ["Kickstarter", "is", "headquartered", "in", "New", "York"]
+    instance = Mitie::NERTrainingInstance.new(tokens)
+    instance.add_entity(0..0, "organization")
+    instance.add_entity(4..5, "location")
+
+    assert instance.overlaps_any_entity?(0..2)
+    refute instance.overlaps_any_entity?(1..3)
+    assert instance.overlaps_any_entity?(3..4)
+  end
+
+  def test_overlaps_any_entity_raises_errors
+    tokens = ["I", "raise", "errors", "."]
+    instance = Mitie::NERTrainingInstance.new(tokens)
+    instance.add_entity(2..2, "noun")
+
+    error = assert_raises(ArgumentError) do
+      instance.overlaps_any_entity?(1...1)
     end
+    assert_equal "Invalid range given to `overlaps_any_entity?'", error.message
+
+    error = assert_raises(ArgumentError) do
+      instance.overlaps_any_entity?(9..12)
+    end
+    assert_equal "Invalid range given to `overlaps_any_entity?'", error.message
   end
 end

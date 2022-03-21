@@ -35,6 +35,7 @@ module Mitie
 
         score_ptr = Fiddle::Pointer.malloc(Fiddle::SIZEOF_DOUBLE)
         status = FFI.mitie_classify_binary_relation(pointer, relation, score_ptr)
+        # TODO make Mitie::Error
         raise "Bad status: #{status}" if status != 0
         score = score_ptr.to_s(Fiddle::SIZEOF_DOUBLE).unpack1("d")
         if score > 0
