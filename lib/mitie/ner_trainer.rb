@@ -44,6 +44,7 @@ module Mitie
     end
 
     def self.finalize(pointer)
+      # must use proc instead of stabby lambda
       proc { FFI.mitie_free(pointer) }
     end
   end
