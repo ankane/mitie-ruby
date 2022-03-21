@@ -9,17 +9,17 @@ class NERTrainingInstanceTest < Minitest::Test
     error = assert_raises(ArgumentError) do
       instance.add_entity(1...1, "nope")
     end
-    assert_equal "Invalid range given to `add_entity'", error.message
+    assert_equal "Invalid range", error.message
 
     error = assert_raises(ArgumentError) do
       instance.add_entity(1...9, "nope")
     end
-    assert_equal "Invalid range given to `add_entity'", error.message
+    assert_equal "Invalid range", error.message
 
     error = assert_raises(ArgumentError) do
       instance.add_entity(-1...2, "nope")
     end
-    assert_equal "Invalid range given to `add_entity'", error.message
+    assert_equal "Invalid range", error.message
 
     error = assert_raises(ArgumentError) do
       instance.add_entity(2..2, "nope")
@@ -64,11 +64,11 @@ class NERTrainingInstanceTest < Minitest::Test
     error = assert_raises(ArgumentError) do
       instance.overlaps_any_entity?(1...1)
     end
-    assert_equal "Invalid range given to `overlaps_any_entity?'", error.message
+    assert_equal "Invalid range", error.message
 
     error = assert_raises(ArgumentError) do
       instance.overlaps_any_entity?(9..12)
     end
-    assert_equal "Invalid range given to `overlaps_any_entity?'", error.message
+    assert_equal "Invalid range", error.message
   end
 end
