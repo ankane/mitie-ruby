@@ -1,15 +1,15 @@
 module Mitie
   class NERTrainingInstance
+    attr_reader :pointer
+
     def initialize(tokens)
       tokens_pointer = Utils.array_to_pointer(tokens)
 
       @pointer = FFI.mitie_create_ner_training_instance(tokens_pointer)
-      raise Error, "Unable to create ner_training_instance. Probably ran out of RAM." if @pointer.null?
+      raise Error, "Unable to create training instance. Probably ran out of RAM." if @pointer.null?
 
       ObjectSpace.define_finalizer(self, self.class.finalize(@pointer))
     end
-
-    attr_reader :pointer
 
     def add_entity(range, label)
       if range.none? || range.end >= num_tokens || range.begin < 0
