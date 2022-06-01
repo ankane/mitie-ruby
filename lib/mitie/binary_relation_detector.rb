@@ -1,9 +1,16 @@
 module Mitie
   class BinaryRelationDetector
-    def initialize(path)
-      # better error message
-      raise ArgumentError, "File does not exist" unless File.exist?(path)
-      @pointer = FFI.mitie_load_binary_relation_detector(path)
+    def initialize(path = nil, pointer: nil)
+      if path
+        # better error message
+        raise ArgumentError, "File does not exist" unless File.exist?(path)
+        @pointer = FFI.mitie_load_binary_relation_detector(path)
+      elsif pointer
+        @pointer = pointer
+      else
+        raise ArgumentError, "Must pass either a path or a pointer"
+      end
+
       ObjectSpace.define_finalizer(self, self.class.finalize(pointer))
     end
 
@@ -47,6 +54,13 @@ module Mitie
         end
       end
       relations
+    end
+
+    def save_to_disk(filename)
+      if FFI.mitie_save_binary_relation_detector(filename, pointer) != 0
+        raise Error, "Unable to save detector"
+      end
+      nil
     end
 
     private

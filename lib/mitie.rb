@@ -3,6 +3,7 @@ require "fiddle/import"
 
 # modules
 require "mitie/binary_relation_detector"
+require "mitie/binary_relation_trainer"
 require "mitie/document"
 require "mitie/ner"
 require "mitie/ner_training_instance"

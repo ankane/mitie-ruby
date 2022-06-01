@@ -144,6 +144,34 @@ This returns
 [{first: "Shopify", second: "Ottawa", score: 0.17649169745814464}]
 ```
 
+### Training [unreleased]
+
+Load an NER model into a trainer
+
+```ruby
+trainer = Mitie::BinaryRelationTrainer.new("rel_classifier_organization.organization.place_founded.svm", model)
+```
+
+Add positive and negative examples to the trainer
+
+```ruby
+tokens = ["Shopify", "was", "founded", "in", "Ottawa"]
+trainer.add_positive_binary_relation(tokens, 0..0, 4..4)
+trainer.add_negative_binary_relation(tokens, 4..4, 0..0)
+```
+
+Train the detector
+
+```ruby
+detector = trainer.train
+```
+
+Save the detector
+
+```ruby
+detector.save_to_disk("binary_relation_detector.svm")
+```
+
 ## Text Categorization
 
 Load a model into a trainer

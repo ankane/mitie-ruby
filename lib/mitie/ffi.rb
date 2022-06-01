@@ -50,6 +50,19 @@ module Mitie
     extern "mitie_binary_relation* mitie_extract_binary_relation(const mitie_named_entity_extractor* ner, char** tokens, unsigned long arg1_start, unsigned long arg1_length, unsigned long arg2_start, unsigned long arg2_length)"
     extern "int mitie_classify_binary_relation(const mitie_binary_relation_detector* detector, const mitie_binary_relation* relation, double* score)"
 
+    extern "mitie_binary_relation_trainer* mitie_create_binary_relation_trainer(const char* relation_name, const mitie_named_entity_extractor* ner)"
+    extern "unsigned long mitie_binary_relation_trainer_num_positive_examples(const mitie_binary_relation_trainer* trainer)"
+    extern "unsigned long mitie_binary_relation_trainer_num_negative_examples(const mitie_binary_relation_trainer* trainer)"
+    extern "int mitie_add_positive_binary_relation(mitie_binary_relation_trainer* trainer, char** tokens, unsigned long arg1_start, unsigned long arg1_length, unsigned long arg2_start, unsigned long arg2_length)"
+    extern "int mitie_add_negative_binary_relation(mitie_binary_relation_trainer* trainer, char** tokens, unsigned long arg1_start, unsigned long arg1_length, unsigned long arg2_start, unsigned long arg2_length)"
+    extern "void mitie_binary_relation_trainer_set_beta(mitie_binary_relation_trainer* trainer, double beta)"
+    extern "double mitie_binary_relation_trainer_get_beta(const mitie_binary_relation_trainer* trainer)"
+    extern "void mitie_binary_relation_trainer_set_num_threads(mitie_binary_relation_trainer* trainer, unsigned long num_threads)"
+    extern "unsigned long mitie_binary_relation_trainer_get_num_threads(const mitie_binary_relation_trainer* trainer)"
+    extern "mitie_binary_relation_detector* mitie_train_binary_relation_detector(const mitie_binary_relation_trainer* trainer)"
+
+    extern "int mitie_save_binary_relation_detector(const char* filename, const mitie_binary_relation_detector* detector)"
+
     extern "mitie_text_categorizer* mitie_load_text_categorizer(const char* filename)"
     extern "int mitie_categorize_text(const mitie_text_categorizer* tcat, const char** tokens, char** text_tag, double* text_score)"
 
