@@ -149,7 +149,7 @@ This returns
 Load a model into a trainer
 
 ```ruby
-trainer = Mitie::TextCategorizationTrainer.new("total_word_feature_extractor.dat")
+trainer = Mitie::TextCategorizerTrainer.new("total_word_feature_extractor.dat")
 ```
 
 Add labeled text to the trainer
