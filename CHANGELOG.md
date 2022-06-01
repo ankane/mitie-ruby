@@ -1,6 +1,7 @@
 ## 0.2.0 (unreleased)
 
 - Added support for text categorization
+- Dropped support for Ruby < 2.7
 
 ## 0.1.6 (2022-03-20)
 
