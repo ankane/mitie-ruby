@@ -3,7 +3,6 @@ require_relative "test_helper"
 class BinaryRelationTrainerTest < Minitest::Test
   def test_works
     trainer = Mitie::BinaryRelationTrainer.new(model)
-    tokens = ["Shopify", "was", "founded", "in", "Ottawa"]
     trainer.add_positive_binary_relation(tokens, 0..0, 4..4)
     trainer.add_negative_binary_relation(tokens, 4...5, 0..0)
     assert_equal 1, trainer.num_positive_examples
@@ -29,7 +28,6 @@ class BinaryRelationTrainerTest < Minitest::Test
 
   def test_add_positive_binary_relation_invalid_range
     trainer = Mitie::BinaryRelationTrainer.new(model)
-    tokens = ["Shopify", "was", "founded", "in", "Ottawa"]
 
     error = assert_raises(ArgumentError) do
       trainer.add_positive_binary_relation(tokens, 0...0, 4..4)
@@ -49,7 +47,6 @@ class BinaryRelationTrainerTest < Minitest::Test
 
   def test_add_negative_binary_relation_invalid_range
     trainer = Mitie::BinaryRelationTrainer.new(model)
-    tokens = ["Shopify", "was", "founded", "in", "Ottawa"]
 
     error = assert_raises(ArgumentError) do
       trainer.add_negative_binary_relation(tokens, 0...0, 4..4)
@@ -69,7 +66,6 @@ class BinaryRelationTrainerTest < Minitest::Test
 
   def test_add_positive_binary_relation_entities_overlap
     trainer = Mitie::BinaryRelationTrainer.new(model)
-    tokens = ["Shopify", "was", "founded", "in", "Ottawa"]
 
     error = assert_raises(ArgumentError) do
       trainer.add_positive_binary_relation(tokens, 0..1, 1..2)
@@ -79,7 +75,6 @@ class BinaryRelationTrainerTest < Minitest::Test
 
   def test_add_negative_binary_relation_entities_overlap
     trainer = Mitie::BinaryRelationTrainer.new(model)
-    tokens = ["Shopify", "was", "founded", "in", "Ottawa"]
 
     error = assert_raises(ArgumentError) do
       trainer.add_negative_binary_relation(tokens, 0..1, 1..2)
@@ -93,5 +88,11 @@ class BinaryRelationTrainerTest < Minitest::Test
       trainer.train
     end
     assert_equal "You can't call train() on an empty trainer", error.message
+  end
+
+  private
+
+  def tokens
+    ["Shopify", "was", "founded", "in", "Ottawa"]
   end
 end
