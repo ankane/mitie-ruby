@@ -67,6 +67,26 @@ class BinaryRelationTrainerTest < Minitest::Test
     assert_equal "Invalid range", error.message
   end
 
+  def test_add_positive_binary_relation_entities_overlap
+    trainer = Mitie::BinaryRelationTrainer.new(model)
+    tokens = ["Shopify", "was", "founded", "in", "Ottawa"]
+
+    error = assert_raises(ArgumentError) do
+      trainer.add_positive_binary_relation(tokens, 0..1, 1..2)
+    end
+    assert_equal "Entities overlap", error.message
+  end
+
+  def test_add_negative_binary_relation_entities_overlap
+    trainer = Mitie::BinaryRelationTrainer.new(model)
+    tokens = ["Shopify", "was", "founded", "in", "Ottawa"]
+
+    error = assert_raises(ArgumentError) do
+      trainer.add_negative_binary_relation(tokens, 0..1, 1..2)
+    end
+    assert_equal "Entities overlap", error.message
+  end
+
   def test_empty_trainer
     trainer = Mitie::BinaryRelationTrainer.new(model)
     error = assert_raises(Mitie::Error) do
