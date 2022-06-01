@@ -9,7 +9,7 @@ class BinaryRelationTrainerTest < Minitest::Test
     assert_equal 1, trainer.num_positive_examples
     assert_equal 1, trainer.num_negative_examples
     detector = silence_stdout { trainer.train }
-    assert_equal "unnamed", detector.name
+    assert_equal "", detector.name
 
     tempfile = Tempfile.new
     detector.save_to_disk(tempfile.path)
