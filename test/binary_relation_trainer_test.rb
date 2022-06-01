@@ -26,4 +26,12 @@ class BinaryRelationTrainerTest < Minitest::Test
     assert_equal "Ottawa", relation[:second]
     assert relation[:score]
   end
+
+  def test_empty_trainer
+    trainer = Mitie::BinaryRelationTrainer.new(model)
+    error = assert_raises(Mitie::Error) do
+      trainer.train
+    end
+    assert_equal "You can't call train() on an empty trainer", error.message
+  end
 end

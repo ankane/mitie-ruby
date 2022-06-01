@@ -15,4 +15,12 @@ class TextCategorizerTest < Minitest::Test
     result = model.categorize(["What", "a", "super", "nice", "day"])
     assert_equal "positive", result[:tag]
   end
+
+  def test_empty_trainer
+    trainer = Mitie::TextCategorizerTrainer.new(feature_extractor)
+    error = assert_raises(Mitie::Error) do
+      trainer.train
+    end
+    assert_equal "You can't call train() on an empty trainer", error.message
+  end
 end

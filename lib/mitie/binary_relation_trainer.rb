@@ -49,6 +49,10 @@ module Mitie
     end
 
     def train
+      if num_positive_examples + num_negative_examples == 0
+        raise Error, "You can't call train() on an empty trainer"
+      end
+
       detector = FFI.mitie_train_binary_relation_detector(@pointer)
 
       raise Error, "Unable to create binary relation detector. Probably ran out of RAM." if detector.null?
