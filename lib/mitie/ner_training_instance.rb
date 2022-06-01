@@ -12,7 +12,7 @@ module Mitie
     end
 
     def add_entity(range, label)
-      if range.none? || range.end >= num_tokens || range.begin < 0
+      if range.none? || !(0...num_tokens).cover?(range)
         raise ArgumentError, "Invalid range"
       end
 

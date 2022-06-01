@@ -67,7 +67,7 @@ module Mitie
     private
 
     def check_range(range, num_tokens)
-      if range.none? || range.end >= num_tokens || range.begin < 0
+      if range.none? || !(0...num_tokens).cover?(range)
         raise ArgumentError, "Invalid range"
       end
     end
