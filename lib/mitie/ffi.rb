@@ -49,5 +49,19 @@ module Mitie
     extern "int mitie_entities_overlap(unsigned long arg1_start, unsigned long arg1_length, unsigned long arg2_start, unsigned long arg2_length)"
     extern "mitie_binary_relation* mitie_extract_binary_relation(const mitie_named_entity_extractor* ner, char** tokens, unsigned long arg1_start, unsigned long arg1_length, unsigned long arg2_start, unsigned long arg2_length)"
     extern "int mitie_classify_binary_relation(const mitie_binary_relation_detector* detector, const mitie_binary_relation* relation, double* score)"
+
+    extern "mitie_text_categorizer* mitie_load_text_categorizer(const char* filename)"
+    extern "int mitie_categorize_text(const mitie_text_categorizer* tcat, const char** tokens, char** text_tag, double* text_score)"
+
+    extern "mitie_text_categorizer_trainer* mitie_create_text_categorizer_trainer(const char* filename)"
+    extern "unsigned long mitie_text_categorizer_trainer_size(const mitie_text_categorizer_trainer* trainer)"
+    extern "void mitie_text_categorizer_trainer_set_beta(mitie_text_categorizer_trainer* trainer, double beta)"
+    extern "double mitie_text_categorizer_trainer_get_beta(const mitie_text_categorizer_trainer* trainer)"
+    extern "void mitie_text_categorizer_trainer_set_num_threads(mitie_text_categorizer_trainer* trainer, unsigned long num_threads)"
+    extern "unsigned long mitie_text_categorizer_trainer_get_num_threads(const mitie_text_categorizer_trainer* trainer)"
+    extern "int mitie_add_text_categorizer_labeled_text(mitie_text_categorizer_trainer* trainer, const char** tokens, const char* label)"
+    extern "mitie_text_categorizer* mitie_train_text_categorizer(const mitie_text_categorizer_trainer* trainer)"
+
+    extern "int mitie_save_text_categorizer(const char* filename, const mitie_text_categorizer* tcat)"
   end
 end

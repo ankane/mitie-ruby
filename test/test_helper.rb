@@ -13,6 +13,10 @@ class Minitest::Test
     ENV.fetch("MITIE_MODELS_PATH")
   end
 
+  def feature_extractor
+    "#{models_path}/total_word_feature_extractor.dat"
+  end
+
   def text
     "Nat works at GitHub in San Francisco"
   end

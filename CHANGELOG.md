@@ -1,3 +1,7 @@
+## 0.2.0 (unreleased)
+
+- Added support for text categorization
+
 ## 0.1.6 (2022-03-20)
 
 - Added support for training NER models

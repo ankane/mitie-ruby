@@ -7,6 +7,8 @@ require "mitie/document"
 require "mitie/ner"
 require "mitie/ner_training_instance"
 require "mitie/ner_trainer"
+require "mitie/text_categorizer"
+require "mitie/text_categorizer_trainer"
 require "mitie/utils"
 require "mitie/version"
 

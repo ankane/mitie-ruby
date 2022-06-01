@@ -53,10 +53,4 @@ class NERTrainerTest < Minitest::Test
     end
     assert_equal "File does not exist", error.message
   end
-
-  private
-
-  def feature_extractor
-    "#{models_path}/total_word_feature_extractor.dat"
-  end
 end

@@ -1,6 +1,6 @@
 # MITIE Ruby
 
-[MITIE](https://github.com/mit-nlp/MITIE) - named-entity recognition and binary relation detection - for Ruby
+[MITIE](https://github.com/mit-nlp/MITIE) - named-entity recognition, binary relation detection, and text categorization - for Ruby
 
 - Finds people, organizations, and locations in text
 - Detects relationships between entities, like `PERSON` was born in `LOCATION`
@@ -22,6 +22,12 @@ And download the pre-trained models for your language:
 - [German](https://github.com/mit-nlp/MITIE/releases/download/v0.4/MITIE-models-v0.2-German.tar.bz2)
 
 ## Getting Started
+
+- [Named Entity Recognition](#named-entity-recognition)
+- [Binary Relation Detection](#binary-relation-detection)
+- [Text Categorization](#text-categorization) [unreleased]
+
+## Named Entity Recognition
 
 Load an NER model
 
@@ -69,7 +75,7 @@ Get all tags for a model
 model.tags
 ```
 
-## Training
+### Training
 
 Load an NER model into a trainer
 
@@ -136,6 +142,44 @@ This returns
 
 ```ruby
 [{first: "Shopify", second: "Ottawa", score: 0.17649169745814464}]
+```
+
+## Text Categorization
+
+Load a model into a trainer
+
+```ruby
+trainer = Mitie::TextCategorizationTrainer.new("total_word_feature_extractor.dat")
+```
+
+Add labeled text to the trainer
+
+```ruby
+trainer.add_labeled_text(["This", "is", "super", "cool"], "positive")
+```
+
+Train the model
+
+```ruby
+model = trainer.train
+```
+
+Save the model
+
+```ruby
+model.save_to_disk("text_categorization_model.dat")
+```
+
+Load a saved model
+
+```ruby
+model = Mitie::TextCategorizer.new("text_categorization_model.dat")
+```
+
+Categorize text
+
+```ruby
+model.categorize(["What", "a", "super", "nice", "day"])
 ```
 
 ## Deployment
