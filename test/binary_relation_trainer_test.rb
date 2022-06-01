@@ -6,6 +6,8 @@ class BinaryRelationTrainerTest < Minitest::Test
     tokens = ["Shopify", "was", "founded", "in", "Ottawa"]
     trainer.add_positive_binary_relation(tokens, 0..0, 4..4)
     trainer.add_negative_binary_relation(tokens, 4..4, 0..0)
+    assert_equal 1, trainer.num_positive_examples
+    assert_equal 1, trainer.num_negative_examples
     detector = silence_stdout { trainer.train }
 
     tempfile = Tempfile.new
