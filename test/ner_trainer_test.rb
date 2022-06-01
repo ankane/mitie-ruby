@@ -2,13 +2,13 @@ require_relative "test_helper"
 
 class NERTrainerTest < Minitest::Test
   def test_beta_accessors
-    trainer = Mitie::NERTrainer.new(feature_extractor)
+    trainer = Mitie::NERTrainer.new(feature_extractor_path)
     trainer.beta = 2.0
     assert_equal 2.0, trainer.beta
   end
 
   def test_beta_writer_raises_on_invalid_input
-    trainer = Mitie::NERTrainer.new(feature_extractor)
+    trainer = Mitie::NERTrainer.new(feature_extractor_path)
     error = assert_raises(ArgumentError) do
       trainer.beta = -0.5
     end
@@ -16,7 +16,7 @@ class NERTrainerTest < Minitest::Test
   end
 
   def test_num_threads_accessors
-    trainer = Mitie::NERTrainer.new(feature_extractor)
+    trainer = Mitie::NERTrainer.new(feature_extractor_path)
     trainer.num_threads = 2
     assert_equal 2, trainer.num_threads
   end
@@ -27,7 +27,7 @@ class NERTrainerTest < Minitest::Test
     instance.add_entity(3..4, "topic")
     instance.add_entity(6..6, "language")
 
-    trainer = Mitie::NERTrainer.new(feature_extractor)
+    trainer = Mitie::NERTrainer.new(feature_extractor_path)
     trainer.add(instance)
     trainer.num_threads = 2
     model = silence_stdout { trainer.train }
@@ -40,7 +40,7 @@ class NERTrainerTest < Minitest::Test
   end
 
   def test_empty_trainer
-    trainer = Mitie::NERTrainer.new(feature_extractor)
+    trainer = Mitie::NERTrainer.new(feature_extractor_path)
     error = assert_raises(Mitie::Error) do
       trainer.train
     end

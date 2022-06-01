@@ -13,7 +13,7 @@ class Minitest::Test
     ENV.fetch("MITIE_MODELS_PATH")
   end
 
-  def feature_extractor
+  def feature_extractor_path
     "#{models_path}/total_word_feature_extractor.dat"
   end
 

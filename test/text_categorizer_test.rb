@@ -2,7 +2,7 @@ require_relative "test_helper"
 
 class TextCategorizerTest < Minitest::Test
   def test_works
-    trainer = Mitie::TextCategorizerTrainer.new(feature_extractor)
+    trainer = Mitie::TextCategorizerTrainer.new(feature_extractor_path)
     trainer.add(["This", "is", "super", "cool"], "positive")
     trainer.add(["I", "am", "not", "a", "fan"], "negative")
     model = silence_stdout { trainer.train }
@@ -17,7 +17,7 @@ class TextCategorizerTest < Minitest::Test
   end
 
   def test_empty_trainer
-    trainer = Mitie::TextCategorizerTrainer.new(feature_extractor)
+    trainer = Mitie::TextCategorizerTrainer.new(feature_extractor_path)
     error = assert_raises(Mitie::Error) do
       trainer.train
     end
