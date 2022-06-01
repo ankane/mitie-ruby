@@ -2,13 +2,14 @@ require_relative "test_helper"
 
 class BinaryRelationTrainerTest < Minitest::Test
   def test_works
-    trainer = Mitie::BinaryRelationTrainer.new("rel_classifier_organization.organization.place_founded.svm", model)
+    trainer = Mitie::BinaryRelationTrainer.new(model)
     tokens = ["Shopify", "was", "founded", "in", "Ottawa"]
     trainer.add_positive_binary_relation(tokens, 0..0, 4..4)
     trainer.add_negative_binary_relation(tokens, 4..4, 0..0)
     assert_equal 1, trainer.num_positive_examples
     assert_equal 1, trainer.num_negative_examples
     detector = silence_stdout { trainer.train }
+    assert_equal "unnamed", detector.name
 
     tempfile = Tempfile.new
     detector.save_to_disk(tempfile.path)

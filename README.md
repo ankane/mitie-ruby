@@ -149,7 +149,7 @@ This returns
 Load an NER model into a trainer
 
 ```ruby
-trainer = Mitie::BinaryRelationTrainer.new("rel_classifier_organization.organization.place_founded.svm", model)
+trainer = Mitie::BinaryRelationTrainer.new(model)
 ```
 
 Add positive and negative examples to the trainer

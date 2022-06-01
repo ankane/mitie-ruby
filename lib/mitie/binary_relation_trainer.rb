@@ -1,6 +1,6 @@
 module Mitie
   class BinaryRelationTrainer
-    def initialize(name, ner)
+    def initialize(ner, name: "unnamed")
       @pointer = FFI.mitie_create_binary_relation_trainer(name, ner.pointer)
 
       ObjectSpace.define_finalizer(self, self.class.finalize(@pointer))
