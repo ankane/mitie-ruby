@@ -33,37 +33,35 @@ module Mitie
 
     def entities
       @entities ||= begin
-        begin
-          entities = []
-          tokens = tokens_with_offset
-          detections = FFI.mitie_extract_entities(pointer, tokens_ptr)
-          num_detections = FFI.mitie_ner_get_num_detections(detections)
-          num_detections.times do |i|
-            pos = FFI.mitie_ner_get_detection_position(detections, i)
-            len = FFI.mitie_ner_get_detection_length(detections, i)
-            tag = FFI.mitie_ner_get_detection_tagstr(detections, i).to_s
-            score = FFI.mitie_ner_get_detection_score(detections, i)
-            tok = tokens[pos, len]
-            offset = tok[0][1]
+        entities = []
+        tokens = tokens_with_offset
+        detections = FFI.mitie_extract_entities(pointer, tokens_ptr)
+        num_detections = FFI.mitie_ner_get_num_detections(detections)
+        num_detections.times do |i|
+          pos = FFI.mitie_ner_get_detection_position(detections, i)
+          len = FFI.mitie_ner_get_detection_length(detections, i)
+          tag = FFI.mitie_ner_get_detection_tagstr(detections, i).to_s
+          score = FFI.mitie_ner_get_detection_score(detections, i)
+          tok = tokens[pos, len]
+          offset = tok[0][1]
 
-            entity = {}
-            if offset
-              finish = tok[-1][1] + tok[-1][0].bytesize
-              entity[:text] = text.byteslice(offset...finish)
-            else
-              entity[:text] = tok.map(&:first)
-            end
-            entity[:tag] = tag
-            entity[:score] = score
-            entity[:offset] = offset if offset
-            entity[:token_index] = pos
-            entity[:token_length] = len
-            entities << entity
+          entity = {}
+          if offset
+            finish = tok[-1][1] + tok[-1][0].bytesize
+            entity[:text] = text.byteslice(offset...finish)
+          else
+            entity[:text] = tok.map(&:first)
           end
-          entities
-        ensure
-          FFI.mitie_free(detections) if detections
+          entity[:tag] = tag
+          entity[:score] = score
+          entity[:offset] = offset if offset
+          entity[:token_index] = pos
+          entity[:token_length] = len
+          entities << entity
         end
+        entities
+      ensure
+        FFI.mitie_free(detections) if detections
       end
     end
 
