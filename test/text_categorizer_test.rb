@@ -3,8 +3,8 @@ require_relative "test_helper"
 class TextCategorizerTest < Minitest::Test
   def test_works
     trainer = Mitie::TextCategorizerTrainer.new(feature_extractor)
-    trainer.add_labeled_text(["This", "is", "super", "cool"], "positive")
-    trainer.add_labeled_text(["I", "am", "not", "a", "fan"], "negative")
+    trainer.add(["This", "is", "super", "cool"], "positive")
+    trainer.add(["I", "am", "not", "a", "fan"], "negative")
     model = silence_stdout { trainer.train }
 
     tempfile = Tempfile.new

@@ -7,7 +7,7 @@ module Mitie
       ObjectSpace.define_finalizer(self, self.class.finalize(@pointer))
     end
 
-    def add_labeled_text(tokens, label)
+    def add(tokens, label)
       tokens_pointer = Utils.array_to_pointer(tokens)
       FFI.mitie_add_text_categorizer_labeled_text(@pointer, tokens_pointer, label)
     end
