@@ -7,6 +7,8 @@ module Mitie
     end
 
     def add_positive_binary_relation(tokens, first_range, second_range)
+      check_range(first_range, tokens.size)
+      check_range(second_range, tokens.size)
       tokens_pointer = Utils.array_to_pointer(tokens)
       status = FFI.mitie_add_positive_binary_relation(@pointer, tokens_pointer, first_range.begin, first_range.size, second_range.begin, second_range.size)
       if status != 0
@@ -15,6 +17,8 @@ module Mitie
     end
 
     def add_negative_binary_relation(tokens, first_range, second_range)
+      check_range(first_range, tokens.size)
+      check_range(second_range, tokens.size)
       tokens_pointer = Utils.array_to_pointer(tokens)
       status = FFI.mitie_add_negative_binary_relation(@pointer, tokens_pointer, first_range.begin, first_range.size, second_range.begin, second_range.size)
       if status != 0
@@ -58,6 +62,14 @@ module Mitie
       raise Error, "Unable to create binary relation detector. Probably ran out of RAM." if detector.null?
 
       Mitie::BinaryRelationDetector.new(pointer: detector)
+    end
+
+    private
+
+    def check_range(range, num_tokens)
+      if range.none? || range.end >= num_tokens || range.begin < 0
+        raise ArgumentError, "Invalid range"
+      end
     end
 
     def self.finalize(pointer)
