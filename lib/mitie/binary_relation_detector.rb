@@ -30,27 +30,8 @@ module Mitie
 
       relations = []
       combinations.each do |entity1, entity2|
-        relation =
-          FFI.mitie_extract_binary_relation(
-            doc.model.pointer,
-            doc.send(:tokens_ptr),
-            entity1[:token_index],
-            entity1[:token_length],
-            entity2[:token_index],
-            entity2[:token_length]
-          )
-
-        score_ptr = Fiddle::Pointer.malloc(Fiddle::SIZEOF_DOUBLE)
-        status = FFI.mitie_classify_binary_relation(pointer, relation, score_ptr)
-        raise Error, "Bad status: #{status}" if status != 0
-        score = score_ptr.to_s(Fiddle::SIZEOF_DOUBLE).unpack1("d")
-        if score > 0
-          relations << {
-            first: entity1[:text],
-            second: entity2[:text],
-            score: score
-          }
-        end
+        relation = extract_relation(doc, entity1, entity2)
+        relations << relation if relation
       end
       relations
     end
@@ -66,6 +47,33 @@ module Mitie
 
     def pointer
       @pointer
+    end
+
+    def extract_relation(doc, entity1, entity2)
+      relation =
+        FFI.mitie_extract_binary_relation(
+          doc.model.pointer,
+          doc.send(:tokens_ptr),
+          entity1[:token_index],
+          entity1[:token_length],
+          entity2[:token_index],
+          entity2[:token_length]
+        )
+
+      score_ptr = Fiddle::Pointer.malloc(Fiddle::SIZEOF_DOUBLE)
+      status = FFI.mitie_classify_binary_relation(pointer, relation, score_ptr)
+      raise Error, "Bad status: #{status}" if status != 0
+
+      score = score_ptr.to_s(Fiddle::SIZEOF_DOUBLE).unpack1("d")
+      if score > 0
+        {
+          first: entity1[:text],
+          second: entity2[:text],
+          score: score
+        }
+      end
+    ensure
+      FFI.mitie_free(relation) if relation
     end
 
     def self.finalize(pointer)
