@@ -25,7 +25,7 @@ And download the pre-trained models for your language:
 
 - [Named Entity Recognition](#named-entity-recognition)
 - [Binary Relation Detection](#binary-relation-detection)
-- [Text Categorization](#text-categorization) [unreleased]
+- [Text Categorization](#text-categorization)
 
 ## Named Entity Recognition
 
@@ -144,7 +144,7 @@ This returns
 [{first: "Shopify", second: "Ottawa", score: 0.17649169745814464}]
 ```
 
-### Training [unreleased]
+### Training
 
 Load an NER model into a trainer
 
