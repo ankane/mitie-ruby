@@ -8,5 +8,11 @@ module Mitie
       end
       tokens_ptr
     end
+
+    def self.check_range(range, num_tokens)
+      if range.none? || !(0..(num_tokens - 1)).cover?(range)
+        raise ArgumentError, "Invalid range"
+      end
+    end
   end
 end

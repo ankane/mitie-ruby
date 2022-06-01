@@ -12,9 +12,7 @@ module Mitie
     end
 
     def add_entity(range, label)
-      if range.none? || !(0...num_tokens).cover?(range)
-        raise ArgumentError, "Invalid range"
-      end
+      Utils.check_range(range, num_tokens)
 
       raise ArgumentError, "Range overlaps existing entity" if overlaps_any_entity?(range)
 
@@ -34,9 +32,7 @@ module Mitie
     end
 
     def overlaps_any_entity?(range)
-      if range.none? || range.max >= num_tokens
-        raise ArgumentError, "Invalid range"
-      end
+      Utils.check_range(range, num_tokens)
 
       FFI.mitie_overlaps_any_entity(@pointer, range.begin, range.size) == 1
     end
