@@ -6,21 +6,21 @@ module Mitie
       ObjectSpace.define_finalizer(self, self.class.finalize(@pointer))
     end
 
-    def add_positive_binary_relation(tokens, first_range, second_range)
-      check_add(tokens, first_range, second_range)
+    def add_positive_binary_relation(tokens, range1, range2)
+      check_add(tokens, range1, range2)
 
       tokens_pointer = Utils.array_to_pointer(tokens)
-      status = FFI.mitie_add_positive_binary_relation(@pointer, tokens_pointer, first_range.begin, first_range.size, second_range.begin, second_range.size)
+      status = FFI.mitie_add_positive_binary_relation(@pointer, tokens_pointer, range1.begin, range1.size, range2.begin, range2.size)
       if status != 0
         raise Error, "Unable to add binary relation"
       end
     end
 
-    def add_negative_binary_relation(tokens, first_range, second_range)
-      check_add(tokens, first_range, second_range)
+    def add_negative_binary_relation(tokens, range1, range2)
+      check_add(tokens, range1, range2)
 
       tokens_pointer = Utils.array_to_pointer(tokens)
-      status = FFI.mitie_add_negative_binary_relation(@pointer, tokens_pointer, first_range.begin, first_range.size, second_range.begin, second_range.size)
+      status = FFI.mitie_add_negative_binary_relation(@pointer, tokens_pointer, range1.begin, range1.size, range2.begin, range2.size)
       if status != 0
         raise Error, "Unable to add binary relation"
       end
@@ -66,17 +66,17 @@ module Mitie
 
     private
 
-    def check_add(tokens, first_range, second_range)
-      Utils.check_range(first_range, tokens.size)
-      Utils.check_range(second_range, tokens.size)
+    def check_add(tokens, range1, range2)
+      Utils.check_range(range1, tokens.size)
+      Utils.check_range(range2, tokens.size)
 
-      if entities_overlap?(first_range, second_range)
+      if entities_overlap?(range1, range2)
         raise ArgumentError, "Entities overlap"
       end
     end
 
-    def entities_overlap?(first_range, second_range)
-      FFI.mitie_entities_overlap(first_range.begin, first_range.size, second_range.begin, second_range.size) == 1
+    def entities_overlap?(range1, range2)
+      FFI.mitie_entities_overlap(range1.begin, range1.size, range2.begin, range2.size) == 1
     end
 
     def self.finalize(pointer)
