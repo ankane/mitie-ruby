@@ -14,5 +14,9 @@ module Mitie
         raise ArgumentError, "Invalid range"
       end
     end
+
+    def self.read_double(ptr)
+      ptr.to_s(Fiddle::SIZEOF_DOUBLE).unpack1("d")
+    end
   end
 end

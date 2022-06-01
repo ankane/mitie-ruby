@@ -25,7 +25,7 @@ module Mitie
 
       {
         tag: text_tag.ptr.to_s,
-        score: text_score.to_s(text_score.size).unpack1("d")
+        score: Utils.read_double(text_score)
       }
     ensure
       # text_tag must be freed

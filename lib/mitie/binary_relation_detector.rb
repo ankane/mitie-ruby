@@ -64,7 +64,7 @@ module Mitie
       status = FFI.mitie_classify_binary_relation(pointer, relation, score_ptr)
       raise Error, "Bad status: #{status}" if status != 0
 
-      score = score_ptr.to_s(Fiddle::SIZEOF_DOUBLE).unpack1("d")
+      score = Utils.read_double(score_ptr)
       if score > 0
         {
           first: entity1[:text],
