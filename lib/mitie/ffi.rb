@@ -14,6 +14,7 @@ module Mitie
 
     extern "void mitie_free(void* object)"
     extern "char** mitie_tokenize(const char* text)"
+    extern "char** mitie_tokenize_file(const char* filename)"
     extern "char** mitie_tokenize_with_offsets(const char* text, unsigned long** token_offsets)"
 
     # ner

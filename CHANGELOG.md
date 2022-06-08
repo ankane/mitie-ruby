@@ -1,6 +1,6 @@
 ## 0.2.1 (unreleased)
 
-- Added `tokenize` method
+- Added `tokenize` and `tokenize_file` methods
 - Added support for untokenized text to text categorization
 
 ## 0.2.0 (2022-06-01)

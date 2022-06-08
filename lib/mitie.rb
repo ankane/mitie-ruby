@@ -37,18 +37,35 @@ module Mitie
   # friendlier error message
   autoload :FFI, "mitie/ffi"
 
-  def self.tokenize(text)
-    tokens_ptr = FFI.mitie_tokenize(text)
-    i = 0
-    tokens = []
-    loop do
-      token = (tokens_ptr + i * Fiddle::SIZEOF_VOIDP).ptr
-      break if token.null?
-      tokens << token.to_s.force_encoding(text.encoding)
-      i += 1
+  class << self
+    def tokenize(text)
+      tokens_ptr = FFI.mitie_tokenize(text)
+      tokens = read_tokens(tokens_ptr)
+      tokens.each { |t| t.force_encoding(text.encoding) }
+      tokens
+    ensure
+      FFI.mitie_free(tokens_ptr) if tokens_ptr
     end
-    tokens
-  ensure
-    FFI.mitie_free(tokens_ptr)
+
+    def tokenize_file(filename)
+      tokens_ptr = FFI.mitie_tokenize_file(filename)
+      read_tokens(tokens_ptr)
+    ensure
+      FFI.mitie_free(tokens_ptr) if tokens_ptr
+    end
+
+    private
+
+    def read_tokens(tokens_ptr)
+      i = 0
+      tokens = []
+      loop do
+        token = (tokens_ptr + i * Fiddle::SIZEOF_VOIDP).ptr
+        break if token.null?
+        tokens << token.to_s
+        i += 1
+      end
+      tokens
+    end
   end
 end
