@@ -14,7 +14,8 @@ module Mitie
       ObjectSpace.define_finalizer(self, self.class.finalize(@pointer))
     end
 
-    def categorize(tokens)
+    def categorize(text)
+      tokens = text.is_a?(Array) ? text : Utils.tokenize(text)
       tokens_pointer = Utils.array_to_pointer(tokens)
       text_tag = Fiddle::Pointer.malloc(Fiddle::SIZEOF_VOIDP)
       text_score = Fiddle::Pointer.malloc(Fiddle::SIZEOF_DOUBLE)

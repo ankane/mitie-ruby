@@ -1,3 +1,7 @@
+## 0.2.1 (unreleased)
+
+- Added support for untokenized text to text categorization
+
 ## 0.2.0 (2022-06-01)
 
 - Added support for text categorization

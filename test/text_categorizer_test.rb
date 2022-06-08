@@ -1,7 +1,7 @@
 require_relative "test_helper"
 
 class TextCategorizerTest < Minitest::Test
-  def test_works
+  def test_tokens
     trainer = Mitie::TextCategorizerTrainer.new(feature_extractor_path)
     trainer.add(["This", "is", "super", "cool"], "positive")
     trainer.add(["I", "am", "not", "a", "fan"], "negative")
@@ -14,6 +14,23 @@ class TextCategorizerTest < Minitest::Test
     model = Mitie::TextCategorizer.new(tempfile.path)
     result = model.categorize(["What", "a", "super", "nice", "day"])
     assert_equal "positive", result[:tag]
+    assert_in_delta 0.0684, result[:score]
+  end
+
+  def test_strings
+    trainer = Mitie::TextCategorizerTrainer.new(feature_extractor_path)
+    trainer.add("This is super cool", "positive")
+    trainer.add("I am not a fan", "negative")
+    model = silence_stdout { trainer.train }
+
+    tempfile = Tempfile.new
+    model.save_to_disk(tempfile.path)
+    assert File.exist?(tempfile.path)
+
+    model = Mitie::TextCategorizer.new(tempfile.path)
+    result = model.categorize("What a super nice day")
+    assert_equal "positive", result[:tag]
+    assert_in_delta 0.0684, result[:score]
   end
 
   def test_empty_trainer
