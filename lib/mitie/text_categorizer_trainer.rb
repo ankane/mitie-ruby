@@ -8,7 +8,7 @@ module Mitie
     end
 
     def add(text, label)
-      tokens = text.is_a?(Array) ? text : Utils.tokenize(text)
+      tokens = text.is_a?(Array) ? text : Mitie.tokenize(text)
       tokens_pointer = Utils.array_to_pointer(tokens)
       FFI.mitie_add_text_categorizer_labeled_text(@pointer, tokens_pointer, label)
     end
