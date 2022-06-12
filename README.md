@@ -183,7 +183,7 @@ trainer = Mitie::TextCategorizerTrainer.new("total_word_feature_extractor.dat")
 Add labeled text to the trainer
 
 ```ruby
-trainer.add(["This", "is", "super", "cool"], "positive")
+trainer.add("This is super cool", "positive")
 ```
 
 Train the model
@@ -207,7 +207,7 @@ model = Mitie::TextCategorizer.new("text_categorization_model.dat")
 Categorize text
 
 ```ruby
-model.categorize(["What", "a", "super", "nice", "day"])
+model.categorize("What a super nice day")
 ```
 
 ## Deployment
