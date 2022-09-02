@@ -39,7 +39,7 @@ module Mitie
 
   class << self
     def tokenize(text)
-      tokens_ptr = FFI.mitie_tokenize(text)
+      tokens_ptr = FFI.mitie_tokenize(text.to_s)
       tokens = read_tokens(tokens_ptr)
       tokens.each { |t| t.force_encoding(text.encoding) }
       tokens
@@ -48,6 +48,7 @@ module Mitie
     end
 
     def tokenize_file(filename)
+      raise ArgumentError, "File does not exist" unless File.exist?(filename)
       tokens_ptr = FFI.mitie_tokenize_file(filename)
       read_tokens(tokens_ptr)
     ensure

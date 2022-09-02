@@ -12,6 +12,10 @@ class MitieTest < Minitest::Test
     assert tokens.all? { |t| t.encoding == Encoding::US_ASCII }
   end
 
+  def test_tokenize_nil
+    assert_equal [], Mitie.tokenize(nil)
+  end
+
   def test_tokenize_file
     tempfile = Tempfile.new
     tempfile.write(text)
@@ -19,5 +23,12 @@ class MitieTest < Minitest::Test
     tokens = Mitie.tokenize_file(tempfile.path)
     assert_equal ["Nat", "works", "at", "GitHub", "in", "San", "Francisco"], tokens
     assert tokens.all? { |t| t.encoding == Encoding::ASCII_8BIT }
+  end
+
+  def test_tokenize_file_missing
+    error = assert_raises(ArgumentError) do
+      Mitie.tokenize_file("missing.txt")
+    end
+    assert_equal "File does not exist", error.message
   end
 end
