@@ -6,30 +6,32 @@ jobs:
       fail-fast: false
       matrix:
         include:
-        - ruby: 3.1
-          os: ubuntu-latest
-        - ruby: "3.0"
-          os: macos-latest
-        - ruby: 2.7
-          os: windows-latest
+          - ruby: 3.2
+            os: ubuntu-22.04
+          - ruby: 3.1
+            os: ubuntu-20.04
+          - ruby: "3.0"
+            os: macos-latest
+          - ruby: 2.7
+            os: windows-latest
     runs-on: ${{ matrix.os }}
     steps:
-    - uses: actions/checkout@v3
-    - uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: ${{ matrix.ruby }}
-        bundler-cache: true
-    - uses: actions/cache@v3
-      with:
-        path: MITIE-models
-        key: models-v4
-      id: cache-models
-    - name: Download models
-      if: steps.cache-models.outputs.cache-hit != 'true'
-      run: |
-        curl -Ls -o models.tar.bz2 https://github.com/mit-nlp/MITIE/releases/download/v0.4/MITIE-models-v0.2.tar.bz2
-        tar xfj models.tar.bz2
-    - run: bundle exec rake vendor:platform
-    - run: bundle exec rake test
-      env:
-        MITIE_MODELS_PATH: MITIE-models/english
+      - uses: actions/checkout@v3
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+      - uses: actions/cache@v3
+        with:
+          path: MITIE-models
+          key: models-v4
+        id: cache-models
+      - name: Download models
+        if: steps.cache-models.outputs.cache-hit != 'true'
+        run: |
+          curl -Ls -o models.tar.bz2 https://github.com/mit-nlp/MITIE/releases/download/v0.4/MITIE-models-v0.2.tar.bz2
+          tar xfj models.tar.bz2
+      - run: bundle exec rake vendor:platform
+      - run: bundle exec rake test
+        env:
+          MITIE_MODELS_PATH: MITIE-models/english
