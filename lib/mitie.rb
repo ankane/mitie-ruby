@@ -2,16 +2,16 @@
 require "fiddle/import"
 
 # modules
-require "mitie/binary_relation_detector"
-require "mitie/binary_relation_trainer"
-require "mitie/document"
-require "mitie/ner"
-require "mitie/ner_training_instance"
-require "mitie/ner_trainer"
-require "mitie/text_categorizer"
-require "mitie/text_categorizer_trainer"
-require "mitie/utils"
-require "mitie/version"
+require_relative "mitie/binary_relation_detector"
+require_relative "mitie/binary_relation_trainer"
+require_relative "mitie/document"
+require_relative "mitie/ner"
+require_relative "mitie/ner_training_instance"
+require_relative "mitie/ner_trainer"
+require_relative "mitie/text_categorizer"
+require_relative "mitie/text_categorizer_trainer"
+require_relative "mitie/utils"
+require_relative "mitie/version"
 
 module Mitie
   class Error < StandardError; end
