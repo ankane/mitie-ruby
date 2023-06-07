@@ -5,13 +5,12 @@ module Mitie
         # better error message
         raise ArgumentError, "File does not exist" unless File.exist?(path)
         @pointer = FFI.mitie_load_text_categorizer(path)
+        @pointer.free = FFI["mitie_free"]
       elsif pointer
         @pointer = pointer
       else
         raise ArgumentError, "Must pass either a path or a pointer"
       end
-
-      ObjectSpace.define_finalizer(self, self.class.finalize(@pointer))
     end
 
     def categorize(text)
@@ -38,11 +37,6 @@ module Mitie
         raise Error, "Unable to save model"
       end
       nil
-    end
-
-    def self.finalize(pointer)
-      # must use proc instead of stabby lambda
-      proc { FFI.mitie_free(pointer) }
     end
   end
 end

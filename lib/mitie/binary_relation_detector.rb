@@ -5,13 +5,12 @@ module Mitie
         # better error message
         raise ArgumentError, "File does not exist" unless File.exist?(path)
         @pointer = FFI.mitie_load_binary_relation_detector(path)
+        @pointer.free = FFI["mitie_free"]
       elsif pointer
         @pointer = pointer
       else
         raise ArgumentError, "Must pass either a path or a pointer"
       end
-
-      ObjectSpace.define_finalizer(self, self.class.finalize(pointer))
     end
 
     def name
@@ -74,11 +73,6 @@ module Mitie
       end
     ensure
       FFI.mitie_free(relation) if relation
-    end
-
-    def self.finalize(pointer)
-      # must use proc instead of stabby lambda
-      proc { FFI.mitie_free(pointer) }
     end
   end
 end

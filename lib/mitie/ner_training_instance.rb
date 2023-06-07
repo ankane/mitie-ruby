@@ -7,8 +7,7 @@ module Mitie
 
       @pointer = FFI.mitie_create_ner_training_instance(tokens_pointer)
       raise Error, "Unable to create training instance. Probably ran out of RAM." if @pointer.null?
-
-      ObjectSpace.define_finalizer(self, self.class.finalize(@pointer))
+      @pointer.free = FFI["mitie_free"]
     end
 
     def add_entity(range, label)
@@ -35,11 +34,6 @@ module Mitie
       Utils.check_range(range, num_tokens)
 
       FFI.mitie_overlaps_any_entity(@pointer, range.begin, range.size) == 1
-    end
-
-    def self.finalize(pointer)
-      # must use proc instead of stabby lambda
-      proc { FFI.mitie_free(pointer) }
     end
   end
 end

@@ -3,8 +3,7 @@ module Mitie
     def initialize(filename)
       raise ArgumentError, "File does not exist" unless File.exist?(filename)
       @pointer = FFI.mitie_create_text_categorizer_trainer(filename)
-
-      ObjectSpace.define_finalizer(self, self.class.finalize(@pointer))
+      @pointer.free = FFI["mitie_free"]
     end
 
     def add(text, label)
@@ -43,11 +42,6 @@ module Mitie
       raise Error, "Unable to create text categorizer. Probably ran out of RAM." if categorizer.null?
 
       Mitie::TextCategorizer.new(pointer: categorizer)
-    end
-
-    def self.finalize(pointer)
-      # must use proc instead of stabby lambda
-      proc { FFI.mitie_free(pointer) }
     end
   end
 end

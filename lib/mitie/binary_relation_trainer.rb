@@ -2,8 +2,7 @@ module Mitie
   class BinaryRelationTrainer
     def initialize(ner, name: "")
       @pointer = FFI.mitie_create_binary_relation_trainer(name, ner.pointer)
-
-      ObjectSpace.define_finalizer(self, self.class.finalize(@pointer))
+      @pointer.free = FFI["mitie_free"]
     end
 
     def add_positive_binary_relation(tokens, range1, range2)
@@ -77,11 +76,6 @@ module Mitie
 
     def entities_overlap?(range1, range2)
       FFI.mitie_entities_overlap(range1.begin, range1.size, range2.begin, range2.size) == 1
-    end
-
-    def self.finalize(pointer)
-      # must use proc instead of stabby lambda
-      proc { FFI.mitie_free(pointer) }
     end
   end
 end

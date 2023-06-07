@@ -87,18 +87,13 @@ module Mitie
         else
           offsets_ptr = Fiddle::Pointer.malloc(Fiddle::SIZEOF_VOIDP)
           tokens_ptr = FFI.mitie_tokenize_with_offsets(text, offsets_ptr)
+          tokens_ptr.free = FFI["mitie_free"]
 
-          ObjectSpace.define_finalizer(tokens_ptr, self.class.finalize(tokens_ptr))
           ObjectSpace.define_finalizer(offsets_ptr, self.class.finalize_ptr(offsets_ptr))
 
           [tokens_ptr, offsets_ptr]
         end
       end
-    end
-
-    def self.finalize(pointer)
-      # must use proc instead of stabby lambda
-      proc { FFI.mitie_free(pointer) }
     end
 
     def self.finalize_ptr(pointer)

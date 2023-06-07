@@ -3,8 +3,7 @@ module Mitie
     def initialize(filename)
       raise ArgumentError, "File does not exist" unless File.exist?(filename)
       @pointer = FFI.mitie_create_ner_trainer(filename)
-
-      ObjectSpace.define_finalizer(self, self.class.finalize(@pointer))
+      @pointer.free = FFI["mitie_free"]
     end
 
     def add(instance)
@@ -41,11 +40,6 @@ module Mitie
       raise Error, "Unable to create named entity extractor. Probably ran out of RAM." if extractor.null?
 
       Mitie::NER.new(pointer: extractor)
-    end
-
-    def self.finalize(pointer)
-      # must use proc instead of stabby lambda
-      proc { FFI.mitie_free(pointer) }
     end
   end
 end

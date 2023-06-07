@@ -1,3 +1,7 @@
+## 0.2.2 (unreleased)
+
+- Fixed error with `dup` and `clone`
+
 ## 0.2.1 (2022-06-12)
 
 - Added `tokenize` and `tokenize_file` methods
