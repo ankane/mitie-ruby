@@ -1,4 +1,4 @@
-## 0.2.2 (unreleased)
+## 0.2.2 (2023-06-07)
 
 - Fixed error with `dup` and `clone`
 
