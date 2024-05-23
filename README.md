@@ -5,7 +5,7 @@
 - Finds people, organizations, and locations in text
 - Detects relationships between entities, like `PERSON` was born in `LOCATION`
 
-[![Build Status](https://github.com/ankane/mitie-ruby/workflows/build/badge.svg?branch=master)](https://github.com/ankane/mitie-ruby/actions)
+[![Build Status](https://github.com/ankane/mitie-ruby/actions/workflows/build.yml/badge.svg)](https://github.com/ankane/mitie-ruby/actions)
 
 ## Installation
 
