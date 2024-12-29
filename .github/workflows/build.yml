@@ -6,8 +6,10 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - ruby: 3.3
+          - ruby: 3.4
             os: ubuntu-latest
+          - ruby: 3.3
+            os: ubuntu-20.04
           - ruby: 3.2
             os: macos-latest
           - ruby: 3.1
