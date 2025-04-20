@@ -22,7 +22,7 @@ module Mitie
           loop do
             token = (tokens_ptr + i * Fiddle::SIZEOF_VOIDP).ptr
             break if token.null?
-            offset = (offsets_ptr.ptr + i * Fiddle::SIZEOF_LONG).to_s(Fiddle::SIZEOF_LONG).unpack1("L!")
+            offset = (offsets_ptr.ptr + i * Fiddle::SIZEOF_LONG).to_str(Fiddle::SIZEOF_LONG).unpack1("L!")
             tokens << [token.to_s.force_encoding(text.encoding), offset]
             i += 1
           end
