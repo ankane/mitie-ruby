@@ -59,7 +59,7 @@ module Mitie
           entity2[:token_length]
         )
 
-      score_ptr = Fiddle::Pointer.malloc(Fiddle::SIZEOF_DOUBLE)
+      score_ptr = Fiddle::Pointer.malloc(Fiddle::SIZEOF_DOUBLE, Fiddle::RUBY_FREE)
       status = FFI.mitie_classify_binary_relation(pointer, relation, score_ptr)
       raise Error, "Bad status: #{status}" if status != 0
 

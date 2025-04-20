@@ -85,7 +85,7 @@ module Mitie
           tokens_ptr = Utils.array_to_pointer(text)
           [tokens_ptr, nil]
         else
-          offsets_ptr = Fiddle::Pointer.malloc(Fiddle::SIZEOF_VOIDP)
+          offsets_ptr = Fiddle::Pointer.malloc(Fiddle::SIZEOF_VOIDP, Fiddle::RUBY_FREE)
           tokens_ptr = FFI.mitie_tokenize_with_offsets(text, offsets_ptr)
           tokens_ptr.free = FFI["mitie_free"]
 
