@@ -4,7 +4,7 @@ module Mitie
       if path
         # better error message
         raise ArgumentError, "File does not exist" unless File.exist?(path)
-        @pointer = FFI.mitie_load_binary_relation_detector(path)
+        @pointer = FFI.mitie_load_binary_relation_detector(+path)
         @pointer.free = FFI["mitie_free"]
       elsif pointer
         @pointer = pointer
@@ -36,7 +36,7 @@ module Mitie
     end
 
     def save_to_disk(filename)
-      if FFI.mitie_save_binary_relation_detector(filename, pointer) != 0
+      if FFI.mitie_save_binary_relation_detector(+filename, pointer) != 0
         raise Error, "Unable to save detector"
       end
       nil

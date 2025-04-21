@@ -86,7 +86,7 @@ module Mitie
           [tokens_ptr, nil]
         else
           offsets_ptr = Fiddle::Pointer.malloc(Fiddle::SIZEOF_VOIDP, Fiddle::RUBY_FREE)
-          tokens_ptr = FFI.mitie_tokenize_with_offsets(text, offsets_ptr)
+          tokens_ptr = FFI.mitie_tokenize_with_offsets(+text, offsets_ptr)
           tokens_ptr.free = FFI["mitie_free"]
 
           ObjectSpace.define_finalizer(offsets_ptr, self.class.finalize_ptr(offsets_ptr))

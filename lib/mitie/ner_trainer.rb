@@ -2,7 +2,7 @@ module Mitie
   class NERTrainer
     def initialize(filename)
       raise ArgumentError, "File does not exist" unless File.exist?(filename)
-      @pointer = FFI.mitie_create_ner_trainer(filename)
+      @pointer = FFI.mitie_create_ner_trainer(+filename)
       @pointer.free = FFI["mitie_free"]
     end
 

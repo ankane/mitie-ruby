@@ -1,7 +1,7 @@
 module Mitie
   class BinaryRelationTrainer
     def initialize(ner, name: "")
-      @pointer = FFI.mitie_create_binary_relation_trainer(name, ner.pointer)
+      @pointer = FFI.mitie_create_binary_relation_trainer(+name, ner.pointer)
       @pointer.free = FFI["mitie_free"]
     end
 

@@ -4,7 +4,7 @@ module Mitie
       if path
         # better error message
         raise ArgumentError, "File does not exist" unless File.exist?(path)
-        @pointer = FFI.mitie_load_text_categorizer(path)
+        @pointer = FFI.mitie_load_text_categorizer(+path)
         @pointer.free = FFI["mitie_free"]
       elsif pointer
         @pointer = pointer
@@ -33,7 +33,7 @@ module Mitie
     end
 
     def save_to_disk(filename)
-      if FFI.mitie_save_text_categorizer(filename, @pointer) != 0
+      if FFI.mitie_save_text_categorizer(+filename, @pointer) != 0
         raise Error, "Unable to save model"
       end
       nil

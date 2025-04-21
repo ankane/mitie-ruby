@@ -2,14 +2,14 @@ module Mitie
   class TextCategorizerTrainer
     def initialize(filename)
       raise ArgumentError, "File does not exist" unless File.exist?(filename)
-      @pointer = FFI.mitie_create_text_categorizer_trainer(filename)
+      @pointer = FFI.mitie_create_text_categorizer_trainer(+filename)
       @pointer.free = FFI["mitie_free"]
     end
 
     def add(text, label)
       tokens = text.is_a?(Array) ? text : Mitie.tokenize(text)
       tokens_pointer = Utils.array_to_pointer(tokens)
-      FFI.mitie_add_text_categorizer_labeled_text(@pointer, tokens_pointer, label)
+      FFI.mitie_add_text_categorizer_labeled_text(@pointer, tokens_pointer, +label)
     end
 
     def beta
