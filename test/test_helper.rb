@@ -5,6 +5,9 @@ require "minitest/pride"
 
 class Minitest::Test
   def setup
+    # autoload before GC.stress
+    Mitie::FFI if stress?
+
     GC.stress = true if stress?
   end
 
