@@ -36,6 +36,7 @@ module Mitie
         entities = []
         tokens = tokens_with_offset
         detections = FFI.mitie_extract_entities(pointer, tokens_ptr)
+        detections.free = FFI["mitie_free"]
         num_detections = FFI.mitie_ner_get_num_detections(detections)
         num_detections.times do |i|
           pos = FFI.mitie_ner_get_detection_position(detections, i)
@@ -60,8 +61,6 @@ module Mitie
           entities << entity
         end
         entities
-      ensure
-        FFI.mitie_free(detections) if detections
       end
     end
 

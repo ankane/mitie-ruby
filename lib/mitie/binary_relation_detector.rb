@@ -58,6 +58,7 @@ module Mitie
           entity2[:token_index],
           entity2[:token_length]
         )
+      relation.free = FFI["mitie_free"]
 
       score_ptr = Fiddle::Pointer.malloc(Fiddle::SIZEOF_DOUBLE, Fiddle::RUBY_FREE)
       status = FFI.mitie_classify_binary_relation(pointer, relation, score_ptr)
@@ -71,8 +72,6 @@ module Mitie
           score: score
         }
       end
-    ensure
-      FFI.mitie_free(relation) if relation
     end
   end
 end

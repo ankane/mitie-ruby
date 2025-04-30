@@ -40,19 +40,17 @@ module Mitie
   class << self
     def tokenize(text)
       tokens_ptr = FFI.mitie_tokenize(+text.to_s)
+      tokens_ptr.free = FFI["mitie_free"]
       tokens = read_tokens(tokens_ptr)
       tokens.each { |t| t.force_encoding(text.encoding) }
       tokens
-    ensure
-      FFI.mitie_free(tokens_ptr) if tokens_ptr
     end
 
     def tokenize_file(filename)
       raise ArgumentError, "File does not exist" unless File.exist?(filename)
       tokens_ptr = FFI.mitie_tokenize_file(+filename)
+      tokens_ptr.free = FFI["mitie_free"]
       read_tokens(tokens_ptr)
-    ensure
-      FFI.mitie_free(tokens_ptr) if tokens_ptr
     end
 
     private
