@@ -3,9 +3,11 @@ module Mitie
     def self.array_to_pointer(text)
       # malloc uses memset to set all bytes to 0
       tokens_ptr = Fiddle::Pointer.malloc(Fiddle::SIZEOF_VOIDP * (text.size + 1), Fiddle::RUBY_FREE)
+      text_ptrs = text.map { |v| Fiddle::Pointer[v] }
       text.size.times do |i|
-        tokens_ptr[i * Fiddle::SIZEOF_VOIDP, Fiddle::SIZEOF_VOIDP] = Fiddle::Pointer.to_ptr(text[i]).ref
+        tokens_ptr[i * Fiddle::SIZEOF_VOIDP, Fiddle::SIZEOF_VOIDP] = text_ptrs[i].ref
       end
+      tokens_ptr.instance_variable_set(:@mitie_refs, text_ptrs)
       tokens_ptr
     end
 
