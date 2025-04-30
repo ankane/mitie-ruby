@@ -22,14 +22,13 @@ module Mitie
       if FFI.mitie_categorize_text(@pointer, tokens_pointer, text_tag, text_score) != 0
         raise Error, "Unable to categorize"
       end
+      text_tag = text_tag.ptr
+      text_tag.free = FFI["mitie_free"]
 
       {
-        tag: text_tag.ptr.to_s,
+        tag: text_tag.to_s,
         score: Utils.read_double(text_score)
       }
-    ensure
-      # text_tag must be freed
-      FFI.mitie_free(text_tag.ptr) if text_tag
     end
 
     def save_to_disk(filename)

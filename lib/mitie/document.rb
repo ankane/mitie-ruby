@@ -22,7 +22,7 @@ module Mitie
           loop do
             token = (tokens_ptr + i * Fiddle::SIZEOF_VOIDP).ptr
             break if token.null?
-            offset = (offsets_ptr.ptr + i * Fiddle::SIZEOF_LONG).to_str(Fiddle::SIZEOF_LONG).unpack1("L!")
+            offset = (offsets_ptr + i * Fiddle::SIZEOF_LONG).to_str(Fiddle::SIZEOF_LONG).unpack1("L!")
             tokens << [token.to_s.force_encoding(text.encoding), offset]
             i += 1
           end
@@ -87,17 +87,12 @@ module Mitie
           offsets_ptr = Fiddle::Pointer.malloc(Fiddle::SIZEOF_VOIDP, Fiddle::RUBY_FREE)
           tokens_ptr = FFI.mitie_tokenize_with_offsets(+text, offsets_ptr)
           tokens_ptr.free = FFI["mitie_free"]
-
-          ObjectSpace.define_finalizer(offsets_ptr, self.class.finalize_ptr(offsets_ptr))
+          offsets_ptr = offsets_ptr.ptr
+          offsets_ptr.free = FFI["mitie_free"]
 
           [tokens_ptr, offsets_ptr]
         end
       end
-    end
-
-    def self.finalize_ptr(pointer)
-      # must use proc instead of stabby lambda
-      proc { FFI.mitie_free(pointer.ptr) }
     end
   end
 end
