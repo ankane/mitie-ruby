@@ -3,18 +3,18 @@ require_relative "test_helper"
 class DocumentTest < Minitest::Test
   def test_entities
     expected = [
-      {:text=>"Nat", :tag=>"PERSON", :score=>0.31123712126883823, :offset=>0, :token_index=>0, :token_length=>1},
-      {:text=>"GitHub", :tag=>"LOCATION", :score=>0.5660115198329334, :offset=>13, :token_index=>3, :token_length=>1},
-      {:text=>"San Francisco", :tag=>"LOCATION", :score=>1.3890524313885309, :offset=>23, :token_index=>5, :token_length=>2}
+      {text: "Nat", tag: "PERSON", score: 0.31123712126883823, offset: 0, token_index: 0, token_length: 1},
+      {text: "GitHub", tag: "LOCATION", score: 0.5660115198329334, offset: 13, token_index: 3, token_length: 1},
+      {text: "San Francisco", tag: "LOCATION", score: 1.3890524313885309, offset: 23, token_index: 5, token_length: 2}
     ]
     assert_equal expected, doc.entities
   end
 
   def test_entities_tokens
     expected = [
-      {:text=>["Nat"], :tag=>"PERSON", :score=>0.31123712126883823, :token_index=>0, :token_length=>1},
-      {:text=>["GitHub"], :tag=>"LOCATION", :score=>0.5660115198329334, :token_index=>3, :token_length=>1},
-      {:text=>["San", "Francisco"], :tag=>"LOCATION", :score=>1.3890524313885309, :token_index=>5, :token_length=>2}
+      {text: ["Nat"], tag: "PERSON", score: 0.31123712126883823, token_index: 0, token_length: 1},
+      {text: ["GitHub"], tag: "LOCATION", score: 0.5660115198329334, token_index: 3, token_length: 1},
+      {text: ["San", "Francisco"], tag: "LOCATION", score: 1.3890524313885309, token_index: 5, token_length: 2}
     ]
     assert_equal expected, token_doc.entities
   end
@@ -26,7 +26,7 @@ class DocumentTest < Minitest::Test
 
   # offset is in bytes
   def test_entities_byte_order_mark
-    expected = [{:text=>"California", :tag=>"LOCATION", :score=>1.4244816233933328, :offset=>12, :token_index=>2, :token_length=>1}]
+    expected = [{text: "California", tag: "LOCATION", score: 1.4244816233933328, offset: 12, token_index: 2, token_length: 1}]
     assert_equal expected, model.doc("\xEF\xBB\xBFWorks in California").entities
   end
 
