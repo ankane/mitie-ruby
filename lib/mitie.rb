@@ -29,7 +29,11 @@ module Mitie
         "libmitie.dylib"
       end
     else
-      "libmitie.so"
+      if RbConfig::CONFIG["host_cpu"] =~ /arm|aarch64/i
+        "libmitie.arm64.so"
+      else
+        "libmitie.so"
+      end
     end
   vendor_lib = File.expand_path("../vendor/#{lib_name}", __dir__)
   self.ffi_lib = [vendor_lib]

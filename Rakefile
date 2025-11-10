@@ -25,6 +25,7 @@ end
 namespace :vendor do
   task :linux do
     download_file("libmitie.so", "07b241d857a4bcd7fd97b68a87ccb06fbab70bfc621ee25aa0ea6bd7f905c45c")
+    download_file("libmitie.arm64.so", "a9afeeae37d6e9263a6ffee71ae214d66b65bad9ebff75bde4f7846da2bc0070")
   end
 
   task :mac do

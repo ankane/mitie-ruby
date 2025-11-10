@@ -1,3 +1,7 @@
+## 0.3.3 (unreleased)
+
+- Added ARM shared library for Linux
+
 ## 0.3.2 (2025-05-04)
 
 - Fixed memory leaks
