@@ -9,7 +9,7 @@ jobs:
           - ruby: "4.0"
             os: ubuntu-latest
           - ruby: 3.4
-            os: ubuntu-latest
+            os: ubuntu-latest-arm
           - ruby: 3.3
             os: ubuntu-22.04
           - ruby: 3.2

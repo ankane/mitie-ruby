@@ -2,21 +2,31 @@ require_relative "test_helper"
 
 class DocumentTest < Minitest::Test
   def test_entities
+    entities = doc.entities
+
     expected = [
-      {text: "Nat", tag: "PERSON", score: 0.31123712126883823, offset: 0, token_index: 0, token_length: 1},
-      {text: "GitHub", tag: "LOCATION", score: 0.5660115198329334, offset: 13, token_index: 3, token_length: 1},
-      {text: "San Francisco", tag: "LOCATION", score: 1.3890524313885309, offset: 23, token_index: 5, token_length: 2}
+      {text: "Nat", tag: "PERSON", offset: 0, token_index: 0, token_length: 1},
+      {text: "GitHub", tag: "LOCATION", offset: 13, token_index: 3, token_length: 1},
+      {text: "San Francisco", tag: "LOCATION", offset: 23, token_index: 5, token_length: 2}
     ]
-    assert_equal expected, doc.entities
+    assert_equal expected, entities.map { |v| v.except(:score) }
+
+    expected = [0.31123712126883823, 0.5660115198329334, 1.3890524313885309]
+    assert_elements_in_delta expected, entities.map { |v| v[:score] }
   end
 
   def test_entities_tokens
+    entities = token_doc.entities
+
     expected = [
-      {text: ["Nat"], tag: "PERSON", score: 0.31123712126883823, token_index: 0, token_length: 1},
-      {text: ["GitHub"], tag: "LOCATION", score: 0.5660115198329334, token_index: 3, token_length: 1},
-      {text: ["San", "Francisco"], tag: "LOCATION", score: 1.3890524313885309, token_index: 5, token_length: 2}
+      {text: ["Nat"], tag: "PERSON", token_index: 0, token_length: 1},
+      {text: ["GitHub"], tag: "LOCATION", token_index: 3, token_length: 1},
+      {text: ["San", "Francisco"], tag: "LOCATION", token_index: 5, token_length: 2}
     ]
-    assert_equal expected, token_doc.entities
+    assert_equal expected, entities.map { |v| v.except(:score) }
+
+    expected = [0.31123712126883823, 0.5660115198329334, 1.3890524313885309]
+    assert_elements_in_delta expected, entities.map { |v| v[:score] }
   end
 
   def test_entities_location
