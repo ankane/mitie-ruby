@@ -41,6 +41,8 @@ module Mitie
 
       raise Error, "Unable to create text categorizer. Probably ran out of RAM." if categorizer.null?
 
+      categorizer.free = FFI["mitie_free"]
+
       Mitie::TextCategorizer.new(pointer: categorizer)
     end
   end

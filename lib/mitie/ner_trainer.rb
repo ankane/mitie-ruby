@@ -39,6 +39,8 @@ module Mitie
 
       raise Error, "Unable to create named entity extractor. Probably ran out of RAM." if extractor.null?
 
+      extractor.free = FFI["mitie_free"]
+
       Mitie::NER.new(pointer: extractor)
     end
   end

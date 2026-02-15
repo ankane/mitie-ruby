@@ -60,6 +60,8 @@ module Mitie
 
       raise Error, "Unable to create binary relation detector. Probably ran out of RAM." if detector.null?
 
+      detector.free = FFI["mitie_free"]
+
       Mitie::BinaryRelationDetector.new(pointer: detector)
     end
 

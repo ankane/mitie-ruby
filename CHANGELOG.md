@@ -1,3 +1,7 @@
+## 0.3.4 (unreleased)
+
+- Fixed memory leaks with trainers
+
 ## 0.3.3 (2025-11-10)
 
 - Added ARM shared library for Linux
