@@ -1,4 +1,4 @@
-## 0.3.4 (unreleased)
+## 0.3.4 (2026-02-27)
 
 - Fixed memory leaks with trainers
 
